@@ -1,0 +1,101 @@
+{
+  "app_name": "AI Rural Healthcare Assistant",
+  "nav": {
+    "home": "Home",
+    "symptom_analysis": "Symptom Analysis",
+    "voice_assistant": "Voice Assistant",
+    "health_education": "Health Education",
+    "about": "About"
+  },
+  "hero": {
+    "headline": "AI Powered Healthcare Assistant for Rural Communities",
+    "subtext": "Understand symptoms, get medical guidance, and connect to healthcare resources — in your own language.",
+    "cta_symptom": "Start Symptom Analysis",
+    "cta_voice": "Use Voice Assistant"
+  },
+  "features": {
+    "title": "How We Help",
+    "symptom_checker": "AI Symptom Checker",
+    "symptom_checker_desc": "Describe your symptoms in any supported language and get instant analysis of possible conditions.",
+    "multilingual": "Multilingual Support",
+    "multilingual_desc": "Available in English, Telugu, Hindi, and Tamil — breaking language barriers in healthcare.",
+    "voice": "Voice Assistant",
+    "voice_desc": "Speak your symptoms naturally. Our voice assistant understands and responds in your language.",
+    "health_awareness": "Health Awareness",
+    "health_awareness_desc": "Access curated health education content about common diseases, prevention, and hygiene."
+  },
+  "how_it_works": {
+    "title": "How It Works",
+    "step1_title": "Enter Symptoms",
+    "step1_desc": "Type or speak your symptoms in your preferred language.",
+    "step2_title": "AI Analyzes",
+    "step2_desc": "Our AI engine processes your symptoms and matches them against medical knowledge.",
+    "step3_title": "Get Guidance",
+    "step3_desc": "Receive possible conditions, severity level, precautions, and when to visit a doctor."
+  },
+  "symptom": {
+    "title": "Symptom Analysis",
+    "subtitle": "Describe your symptoms and get AI-powered medical guidance",
+    "input_placeholder": "Describe your symptoms... (e.g., fever and headache)",
+    "send": "Send",
+    "speak": "Speak Symptoms",
+    "listening": "Listening...",
+    "analyzing": "Analyzing symptoms...",
+    "detected_symptoms": "Detected Symptoms",
+    "possible_conditions": "Possible Conditions",
+    "severity": "Severity Level",
+    "precautions": "Precautions",
+    "when_to_visit": "When to Visit a Doctor",
+    "welcome_message": "Hello! I'm your AI health assistant. Describe your symptoms and I'll help you understand what might be going on. Please remember, this is not a substitute for professional medical advice.",
+    "disclaimer": "⚠️ This tool provides general health information only. Always consult a qualified healthcare provider for medical advice."
+  },
+  "voice_page": {
+    "title": "Voice Assistant",
+    "subtitle": "Speak your symptoms and get instant health guidance",
+    "tap_to_speak": "Tap to Speak",
+    "stop": "Stop",
+    "instruction": "Press the microphone button and describe your symptoms in your language. The AI will analyze and respond."
+  },
+  "education": {
+    "title": "Health Education",
+    "subtitle": "Learn about common health conditions, prevention, and hygiene practices",
+    "topics": {
+      "fever": "Understanding Fever",
+      "fever_desc": "Fever is a temporary increase in body temperature. Learn when it's serious and basic remedies.",
+      "hygiene": "Personal Hygiene",
+      "hygiene_desc": "Simple hygiene practices that prevent many diseases. Handwashing, clean water, and sanitation.",
+      "nutrition": "Nutrition Basics",
+      "nutrition_desc": "Balanced diet essentials for rural communities. Affordable and locally available nutritious foods.",
+      "first_aid": "Basic First Aid",
+      "first_aid_desc": "Essential first aid knowledge for common injuries, burns, and emergencies.",
+      "maternal": "Maternal Health",
+      "maternal_desc": "Important health practices during pregnancy, childbirth, and postnatal care.",
+      "waterborne": "Waterborne Diseases",
+      "waterborne_desc": "Prevention and treatment of diseases caused by contaminated water sources."
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Bringing AI-powered healthcare to underserved communities",
+    "mission_title": "Our Mission",
+    "mission_desc": "We believe everyone deserves access to basic health information, regardless of language or location. Our AI Rural Healthcare Assistant bridges the gap between rural communities and medical knowledge.",
+    "how_title": "How It Helps",
+    "how_desc": "Using advanced AI, we analyze symptoms, provide basic medical guidance in multiple languages, and help users understand when professional medical care is needed.",
+    "disclaimer_title": "Important Disclaimer",
+    "disclaimer_desc": "This application is designed for informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider."
+  },
+  "footer": {
+    "description": "AI-powered healthcare assistant for rural and underserved communities.",
+    "quick_links": "Quick Links",
+    "disclaimer": "Disclaimer",
+    "disclaimer_text": "This tool provides general health information only. It is not a substitute for professional medical advice.",
+    "copyright": "© 2026 AI Rural Healthcare Assistant. All rights reserved."
+  },
+  "common": {
+    "get_health_advice": "Get Health Advice",
+    "find_nearby_doctor": "Find Nearby Doctor",
+    "enter_symptoms": "Enter Symptoms",
+    "speak_symptoms": "Speak Symptoms",
+    "loading": "Loading..."
+  }
+}
