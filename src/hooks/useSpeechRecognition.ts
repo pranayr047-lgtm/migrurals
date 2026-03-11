@@ -13,12 +13,12 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const { language } = useLanguage();
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null);
 
-  const SpeechRecognitionAPI = typeof window !== 'undefined'
-    ? (window.SpeechRecognition || window.webkitSpeechRecognition)
-    : null;
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const win = window as any;
+  const SpeechRecognitionAPI = win.SpeechRecognition || win.webkitSpeechRecognition || null;
   const isSupported = !!SpeechRecognitionAPI;
 
   const startListening = useCallback(() => {
@@ -29,7 +29,7 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
     recognition.interimResults = true;
     recognition.continuous = false;
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: { results: ArrayLike<{ 0: { transcript: string } }> }) => {
       const result = Array.from(event.results)
         .map((r) => r[0].transcript)
         .join('');
