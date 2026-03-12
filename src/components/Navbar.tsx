@@ -80,7 +80,7 @@ const Navbar = () => {
 
           {/* Auth */}
           {user ? (
-            <div className="flex items-center gap-2">
+            <Link to="/profile" className="flex items-center gap-2">
               {user.user_metadata?.avatar_url ? (
                 <img src={user.user_metadata.avatar_url} alt="" className="h-8 w-8 rounded-full" />
               ) : (
@@ -88,10 +88,12 @@ const Navbar = () => {
                   <User className="h-4 w-4" />
                 </div>
               )}
-              <button onClick={signOut} className="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground" title="Sign out">
-                <LogOut className="h-4 w-4" />
-              </button>
-            </div>
+            </Link>
+          ) : (
+            <Link to="/login" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+              Sign In
+            </Link>
+          )}
           ) : (
             <Link to="/login" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
               {t.login.google_button.includes('Google') ? 'Sign In' : t.login.google_button}
