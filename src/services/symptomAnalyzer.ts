@@ -1,72 +1,78 @@
-// Simulated symptom analysis engine (client-side)
-interface SymptomResult {
-  detected_symptoms: string[];
-  possible_conditions: { name: string; probability: string }[];
-  precautions: string[];
-  severity_level: string;
-  when_to_visit: string;
+// Simulated symptom analysis engine (client-side) — returns translation keys for multilingual support
+
+export interface SymptomResult {
+  detected_symptoms: string[]; // keys like "fever", "headache"
+  possible_conditions: { name_key: string; probability_key: string }[];
+  precaution_keys: string[];
+  severity_key: string;
+  when_to_visit_key: string;
 }
 
-const symptomDatabase: Record<string, { conditions: { name: string; probability: string }[]; severity: string; precautions: string[]; when_to_visit: string }> = {
+const symptomDatabase: Record<string, {
+  conditions: { name_key: string; probability_key: string }[];
+  severity_key: string;
+  precaution_keys: string[];
+  when_to_visit_key: string;
+}> = {
   fever: {
     conditions: [
-      { name: "Common Cold / Flu", probability: "High" },
-      { name: "Viral Infection", probability: "Medium" },
-      { name: "Malaria", probability: "Low-Medium" },
+      { name_key: "common_cold_flu", probability_key: "high" },
+      { name_key: "viral_infection", probability_key: "medium" },
+      { name_key: "malaria", probability_key: "low_medium" },
     ],
-    severity: "Moderate",
-    precautions: ["Rest and stay hydrated", "Take paracetamol for fever", "Monitor temperature regularly", "Use light clothing"],
-    when_to_visit: "If fever persists for more than 3 days or exceeds 103°F (39.4°C)",
+    severity_key: "moderate",
+    precaution_keys: ["rest_hydrated", "paracetamol", "monitor_temp", "light_clothing"],
+    when_to_visit_key: "fever",
   },
   headache: {
     conditions: [
-      { name: "Tension Headache", probability: "High" },
-      { name: "Migraine", probability: "Medium" },
-      { name: "Dehydration", probability: "Medium" },
+      { name_key: "tension_headache", probability_key: "high" },
+      { name_key: "migraine", probability_key: "medium" },
+      { name_key: "dehydration", probability_key: "medium" },
     ],
-    severity: "Mild",
-    precautions: ["Rest in a quiet, dark room", "Stay hydrated", "Take a mild pain reliever", "Apply cold compress"],
-    when_to_visit: "If headache is severe, sudden, or accompanied by vision changes",
+    severity_key: "mild",
+    precaution_keys: ["rest_quiet", "stay_hydrated", "pain_reliever", "cold_compress"],
+    when_to_visit_key: "headache",
   },
   cough: {
     conditions: [
-      { name: "Common Cold", probability: "High" },
-      { name: "Bronchitis", probability: "Medium" },
-      { name: "Allergic Reaction", probability: "Low" },
+      { name_key: "common_cold", probability_key: "high" },
+      { name_key: "bronchitis", probability_key: "medium" },
+      { name_key: "allergic_reaction", probability_key: "low" },
     ],
-    severity: "Mild-Moderate",
-    precautions: ["Drink warm fluids", "Use honey for sore throat", "Avoid cold drinks", "Cover mouth while coughing"],
-    when_to_visit: "If cough persists for more than 2 weeks or produces blood",
+    severity_key: "mild_moderate",
+    precaution_keys: ["warm_fluids", "honey_throat", "avoid_cold", "cover_mouth"],
+    when_to_visit_key: "cough",
   },
   stomach: {
     conditions: [
-      { name: "Gastritis", probability: "High" },
-      { name: "Food Poisoning", probability: "Medium" },
-      { name: "Gastroenteritis", probability: "Medium" },
+      { name_key: "gastritis", probability_key: "high" },
+      { name_key: "food_poisoning", probability_key: "medium" },
+      { name_key: "gastroenteritis", probability_key: "medium" },
     ],
-    severity: "Moderate",
-    precautions: ["Stay hydrated with ORS", "Eat light, bland food", "Avoid spicy and oily food", "Rest adequately"],
-    when_to_visit: "If pain is severe, persistent, or accompanied by blood in stool",
+    severity_key: "moderate",
+    precaution_keys: ["ors", "bland_food", "avoid_spicy", "rest"],
+    when_to_visit_key: "stomach",
   },
   diarrhea: {
     conditions: [
-      { name: "Gastroenteritis", probability: "High" },
-      { name: "Food Poisoning", probability: "High" },
-      { name: "Cholera", probability: "Low" },
+      { name_key: "gastroenteritis", probability_key: "high" },
+      { name_key: "food_poisoning", probability_key: "high" },
+      { name_key: "cholera", probability_key: "low" },
     ],
-    severity: "Moderate-High",
-    precautions: ["Drink ORS frequently", "Avoid dairy products", "Eat light foods like rice and banana", "Wash hands frequently"],
-    when_to_visit: "If diarrhea persists for more than 2 days or signs of dehydration appear",
+    severity_key: "moderate_high",
+    precaution_keys: ["ors_frequently", "avoid_dairy", "rice_banana", "wash_hands"],
+    when_to_visit_key: "diarrhea",
   },
   bodyache: {
     conditions: [
-      { name: "Viral Fever", probability: "High" },
-      { name: "Dengue", probability: "Medium" },
-      { name: "Chikungunya", probability: "Low-Medium" },
+      { name_key: "viral_fever", probability_key: "high" },
+      { name_key: "dengue", probability_key: "medium" },
+      { name_key: "chikungunya", probability_key: "low_medium" },
     ],
-    severity: "Moderate",
-    precautions: ["Complete bed rest", "Stay hydrated", "Take paracetamol", "Use mosquito nets and repellents"],
-    when_to_visit: "If body ache is accompanied by high fever, rash, or joint swelling",
+    severity_key: "moderate",
+    precaution_keys: ["bed_rest", "stay_hydrated", "paracetamol", "mosquito_nets"],
+    when_to_visit_key: "bodyache",
   },
 };
 
@@ -92,41 +98,40 @@ export function analyzeSymptoms(input: string): Promise<SymptomResult> {
       }
 
       if (detectedKeys.length === 0) {
-        // Fallback
         resolve({
           detected_symptoms: [input],
-          possible_conditions: [{ name: "Unable to determine specific condition", probability: "N/A" }],
-          precautions: ["Rest well", "Stay hydrated", "Monitor your symptoms", "Consult a healthcare provider"],
-          severity_level: "Unknown",
-          when_to_visit: "If symptoms persist or worsen, please visit a doctor.",
+          possible_conditions: [{ name_key: "unknown", probability_key: "na" }],
+          precaution_keys: ["rest_well", "stay_hydrated", "monitor", "consult"],
+          severity_key: "unknown",
+          when_to_visit_key: "default",
         });
         return;
       }
 
-      const allConditions: { name: string; probability: string }[] = [];
+      const allConditions: { name_key: string; probability_key: string }[] = [];
       const allPrecautions: string[] = [];
-      let maxSeverity = "Mild";
-      const whenToVisit: string[] = [];
+      let maxSeverity = "mild";
+      const whenKeys: string[] = [];
 
       for (const key of detectedKeys) {
         const data = symptomDatabase[key];
         allConditions.push(...data.conditions);
-        allPrecautions.push(...data.precautions);
-        whenToVisit.push(data.when_to_visit);
-        if (data.severity === "Moderate-High" || data.severity === "High") maxSeverity = "High";
-        else if (data.severity === "Moderate" && maxSeverity !== "High") maxSeverity = "Moderate";
+        allPrecautions.push(...data.precaution_keys);
+        whenKeys.push(data.when_to_visit_key);
+        if (data.severity_key === "moderate_high" || data.severity_key === "high") maxSeverity = "high";
+        else if (data.severity_key === "moderate" && maxSeverity !== "high") maxSeverity = "moderate";
+        else if (data.severity_key === "mild_moderate" && maxSeverity === "mild") maxSeverity = "mild_moderate";
       }
 
-      // Deduplicate
-      const uniqueConditions = allConditions.filter((c, i, arr) => arr.findIndex((x) => x.name === c.name) === i);
+      const uniqueConditions = allConditions.filter((c, i, arr) => arr.findIndex((x) => x.name_key === c.name_key) === i);
       const uniquePrecautions = [...new Set(allPrecautions)];
 
       resolve({
-        detected_symptoms: detectedKeys.map((k) => k.charAt(0).toUpperCase() + k.slice(1)),
+        detected_symptoms: detectedKeys,
         possible_conditions: uniqueConditions.slice(0, 5),
-        precautions: uniquePrecautions.slice(0, 6),
-        severity_level: maxSeverity,
-        when_to_visit: whenToVisit[0] || "Consult a doctor if symptoms persist.",
+        precaution_keys: uniquePrecautions.slice(0, 6),
+        severity_key: maxSeverity,
+        when_to_visit_key: whenKeys[0] || "default",
       });
     }, 1500);
   });
