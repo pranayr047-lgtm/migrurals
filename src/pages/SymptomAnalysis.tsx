@@ -17,7 +17,8 @@ interface ChatMessage {
 }
 
 const SymptomAnalysis = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { user } = useAuth();
   const sr = t.symptom_results;
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
