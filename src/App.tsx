@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import SymptomAnalysis from "./pages/SymptomAnalysis";
 import VoiceAssistant from "./pages/VoiceAssistant";
 import HealthEducation from "./pages/HealthEducation";
@@ -30,6 +31,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="/symptom-analysis" element={<ProtectedRoute><SymptomAnalysis /></ProtectedRoute>} />
               <Route path="/voice-assistant" element={<ProtectedRoute><VoiceAssistant /></ProtectedRoute>} />
               <Route path="/health-education" element={<HealthEducation />} />
