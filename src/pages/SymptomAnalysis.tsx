@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { analyzeSymptoms, SymptomResult } from '@/services/symptomAnalyzer';
 import PageContainer from '@/components/PageContainer';
