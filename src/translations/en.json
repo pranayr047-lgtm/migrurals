@@ -97,5 +97,88 @@
     "enter_symptoms": "Enter Symptoms",
     "speak_symptoms": "Speak Symptoms",
     "loading": "Loading..."
+  },
+  "login": {
+    "subtitle": "Sign in to access health services",
+    "google_button": "Continue with Google",
+    "disclaimer": "By signing in, you agree that this tool provides general health information only and is not a substitute for professional medical advice."
+  },
+  "symptom_results": {
+    "fever": "Fever",
+    "headache": "Headache",
+    "cough": "Cough",
+    "stomach": "Stomach Pain",
+    "diarrhea": "Diarrhea",
+    "bodyache": "Body Ache",
+    "conditions": {
+      "common_cold_flu": "Common Cold / Flu",
+      "viral_infection": "Viral Infection",
+      "malaria": "Malaria",
+      "tension_headache": "Tension Headache",
+      "migraine": "Migraine",
+      "dehydration": "Dehydration",
+      "common_cold": "Common Cold",
+      "bronchitis": "Bronchitis",
+      "allergic_reaction": "Allergic Reaction",
+      "gastritis": "Gastritis",
+      "food_poisoning": "Food Poisoning",
+      "gastroenteritis": "Gastroenteritis",
+      "cholera": "Cholera",
+      "viral_fever": "Viral Fever",
+      "dengue": "Dengue",
+      "chikungunya": "Chikungunya",
+      "unknown": "Unable to determine specific condition"
+    },
+    "precautions": {
+      "rest_hydrated": "Rest and stay hydrated",
+      "paracetamol": "Take paracetamol for fever",
+      "monitor_temp": "Monitor temperature regularly",
+      "light_clothing": "Use light clothing",
+      "rest_quiet": "Rest in a quiet, dark room",
+      "stay_hydrated": "Stay hydrated",
+      "pain_reliever": "Take a mild pain reliever",
+      "cold_compress": "Apply cold compress",
+      "warm_fluids": "Drink warm fluids",
+      "honey_throat": "Use honey for sore throat",
+      "avoid_cold": "Avoid cold drinks",
+      "cover_mouth": "Cover mouth while coughing",
+      "ors": "Stay hydrated with ORS",
+      "bland_food": "Eat light, bland food",
+      "avoid_spicy": "Avoid spicy and oily food",
+      "rest": "Rest adequately",
+      "ors_frequently": "Drink ORS frequently",
+      "avoid_dairy": "Avoid dairy products",
+      "rice_banana": "Eat light foods like rice and banana",
+      "wash_hands": "Wash hands frequently",
+      "bed_rest": "Complete bed rest",
+      "mosquito_nets": "Use mosquito nets and repellents",
+      "rest_well": "Rest well",
+      "monitor": "Monitor your symptoms",
+      "consult": "Consult a healthcare provider"
+    },
+    "when_to_visit_texts": {
+      "fever": "If fever persists for more than 3 days or exceeds 103°F (39.4°C)",
+      "headache": "If headache is severe, sudden, or accompanied by vision changes",
+      "cough": "If cough persists for more than 2 weeks or produces blood",
+      "stomach": "If pain is severe, persistent, or accompanied by blood in stool",
+      "diarrhea": "If diarrhea persists for more than 2 days or signs of dehydration appear",
+      "bodyache": "If body ache is accompanied by high fever, rash, or joint swelling",
+      "default": "If symptoms persist or worsen, please visit a doctor."
+    },
+    "severity_levels": {
+      "mild": "Mild",
+      "moderate": "Moderate",
+      "mild_moderate": "Mild-Moderate",
+      "moderate_high": "Moderate-High",
+      "high": "High",
+      "unknown": "Unknown"
+    },
+    "probability": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "low_medium": "Low-Medium",
+      "na": "N/A"
+    }
   }
 }
