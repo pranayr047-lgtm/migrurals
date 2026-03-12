@@ -66,16 +66,16 @@ const SymptomAnalysis = () => {
       setMessages((prev) => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: '', analysis: result }]);
       // Save to history
       if (user) {
-        await supabase.from('analysis_history').insert({
+        await supabase.from('analysis_history').insert([{
           user_id: user.id,
           input_text: text,
           detected_symptoms: result.detected_symptoms,
-          conditions: result.possible_conditions as unknown as Record<string, unknown>,
+          conditions: JSON.parse(JSON.stringify(result.possible_conditions)),
           severity_key: result.severity_key,
           precaution_keys: result.precaution_keys,
           when_to_visit_key: result.when_to_visit_key,
           language,
-        });
+        }]);
       }
     } catch {
       setMessages((prev) => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: 'Error occurred.' }]);
