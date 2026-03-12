@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { analyzeSymptoms, SymptomResult } from '@/services/symptomAnalyzer';
 import PageContainer from '@/components/PageContainer';
@@ -15,7 +17,8 @@ interface ChatMessage {
 }
 
 const SymptomAnalysis = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { user } = useAuth();
   const sr = t.symptom_results;
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
@@ -61,6 +64,19 @@ const SymptomAnalysis = () => {
     try {
       const result = await analyzeSymptoms(text);
       setMessages((prev) => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: '', analysis: result }]);
+      // Save to history
+      if (user) {
+        await supabase.from('analysis_history').insert([{
+          user_id: user.id,
+          input_text: text,
+          detected_symptoms: result.detected_symptoms,
+          conditions: JSON.parse(JSON.stringify(result.possible_conditions)),
+          severity_key: result.severity_key,
+          precaution_keys: result.precaution_keys,
+          when_to_visit_key: result.when_to_visit_key,
+          language,
+        }]);
+      }
     } catch {
       setMessages((prev) => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: 'Error occurred.' }]);
     } finally {
