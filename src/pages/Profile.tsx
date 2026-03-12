@@ -40,7 +40,7 @@ const Profile = () => {
     supabase.from('profiles').select('*').eq('user_id', user.id).single().then(({ data }) => {
       if (data) {
         setDisplayName(data.display_name || user.user_metadata?.full_name || '');
-        setPrefLang(data.preferred_language || 'en');
+        setPrefLang((data.preferred_language || 'en') as Language);
       }
     });
     // Load history
