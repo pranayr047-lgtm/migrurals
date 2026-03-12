@@ -2,17 +2,25 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
-import { analyzeSymptoms } from '@/services/symptomAnalyzer';
+import { analyzeSymptoms, SymptomResult } from '@/services/symptomAnalyzer';
 import PageContainer from '@/components/PageContainer';
 import bgImage from '@/assets/bg-rural-health.jpg';
 import { Mic, MicOff, Activity, AlertTriangle, Shield, Stethoscope } from 'lucide-react';
 
 const VoiceAssistant = () => {
   const { t } = useLanguage();
+  const sr = t.symptom_results;
   const { isListening, transcript, startListening, stopListening, isSupported } = useSpeechRecognition();
   const [lastTranscript, setLastTranscript] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [result, setResult] = useState<Awaited<ReturnType<typeof analyzeSymptoms>> | null>(null);
+  const [result, setResult] = useState<SymptomResult | null>(null);
+
+  const getSymptomName = (key: string) => (sr as Record<string, unknown>)[key] as string || key;
+  const getCondition = (key: string) => sr.conditions[key as keyof typeof sr.conditions] || key;
+  const getProbability = (key: string) => sr.probability[key as keyof typeof sr.probability] || key;
+  const getPrecaution = (key: string) => sr.precautions[key as keyof typeof sr.precautions] || key;
+  const getSeverity = (key: string) => sr.severity_levels[key as keyof typeof sr.severity_levels] || key;
+  const getWhenToVisit = (key: string) => sr.when_to_visit_texts[key as keyof typeof sr.when_to_visit_texts] || key;
 
   useEffect(() => {
     if (!isListening && transcript && transcript !== lastTranscript) {
@@ -25,8 +33,7 @@ const VoiceAssistant = () => {
     setIsAnalyzing(true);
     setResult(null);
     try {
-      const res = await analyzeSymptoms(text);
-      setResult(res);
+      setResult(await analyzeSymptoms(text));
     } finally {
       setIsAnalyzing(false);
     }
@@ -39,7 +46,6 @@ const VoiceAssistant = () => {
           <h1 className="mb-2 text-3xl font-bold text-foreground">{t.voice_page.title}</h1>
           <p className="mb-10 text-muted-foreground">{t.voice_page.subtitle}</p>
 
-          {/* Mic Button */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={isListening ? stopListening : startListening}
@@ -62,19 +68,13 @@ const VoiceAssistant = () => {
             <p className="mb-6 text-sm text-destructive">Speech recognition is not supported in this browser.</p>
           )}
 
-          {/* Transcript */}
           {(transcript || lastTranscript) && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-6 rounded-xl border border-border bg-card p-4 text-left"
-            >
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 rounded-xl border border-border bg-card p-4 text-left">
               <p className="text-xs font-medium text-muted-foreground mb-1">You said:</p>
               <p className="text-foreground">{transcript || lastTranscript}</p>
             </motion.div>
           )}
 
-          {/* Analyzing */}
           {isAnalyzing && (
             <div className="flex items-center justify-center gap-2 text-muted-foreground">
               <div className="h-2 w-2 animate-pulse rounded-full bg-primary" />
@@ -82,13 +82,8 @@ const VoiceAssistant = () => {
             </div>
           )}
 
-          {/* Results */}
           {result && (
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-6 space-y-4 rounded-2xl border border-border bg-card p-6 text-left"
-            >
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-6 space-y-4 rounded-2xl border border-border bg-card p-6 text-left">
               <div>
                 <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
                   <Activity className="h-5 w-5 text-primary" />
@@ -96,7 +91,7 @@ const VoiceAssistant = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {result.detected_symptoms.map((s, i) => (
-                    <span key={i} className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">{s}</span>
+                    <span key={i} className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">{getSymptomName(s)}</span>
                   ))}
                 </div>
               </div>
@@ -106,8 +101,8 @@ const VoiceAssistant = () => {
                   <AlertTriangle className="h-5 w-5" />
                   {t.symptom.severity}
                 </div>
-                <span className={`font-bold ${result.severity_level.includes('High') ? 'text-destructive' : result.severity_level.includes('Moderate') ? 'text-accent' : 'text-primary'}`}>
-                  {result.severity_level}
+                <span className={`font-bold ${result.severity_key.includes('high') ? 'text-destructive' : result.severity_key.includes('moderate') ? 'text-accent' : 'text-primary'}`}>
+                  {getSeverity(result.severity_key)}
                 </span>
               </div>
 
@@ -119,8 +114,8 @@ const VoiceAssistant = () => {
                 <ul className="space-y-1">
                   {result.possible_conditions.map((c, i) => (
                     <li key={i} className="flex justify-between text-sm">
-                      <span className="text-foreground">{c.name}</span>
-                      <span className="text-muted-foreground">{c.probability}</span>
+                      <span className="text-foreground">{getCondition(c.name_key)}</span>
+                      <span className="text-muted-foreground">{getProbability(c.probability_key)}</span>
                     </li>
                   ))}
                 </ul>
@@ -132,13 +127,13 @@ const VoiceAssistant = () => {
                   {t.symptom.precautions}
                 </div>
                 <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
-                  {result.precautions.map((p, i) => <li key={i}>{p}</li>)}
+                  {result.precaution_keys.map((p, i) => <li key={i}>{getPrecaution(p)}</li>)}
                 </ul>
               </div>
 
               <div className="rounded-lg border border-accent/30 bg-accent/10 p-3">
                 <p className="font-medium text-accent-foreground">🏥 {t.symptom.when_to_visit}</p>
-                <p className="text-sm text-muted-foreground">{result.when_to_visit}</p>
+                <p className="text-sm text-muted-foreground">{getWhenToVisit(result.when_to_visit_key)}</p>
               </div>
             </motion.div>
           )}
