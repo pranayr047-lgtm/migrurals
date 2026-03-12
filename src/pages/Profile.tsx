@@ -22,8 +22,9 @@ const Profile = () => {
   const { t, language, setLanguage } = useLanguage();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  type Language = 'en' | 'te' | 'hi' | 'ta';
   const [displayName, setDisplayName] = useState('');
-  const [prefLang, setPrefLang] = useState(language);
+  const [prefLang, setPrefLang] = useState<Language>(language as Language);
   const [saving, setSaving] = useState(false);
   const [history, setHistory] = useState<AnalysisRecord[]>([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
