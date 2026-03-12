@@ -116,7 +116,7 @@ const Profile = () => {
                 </label>
                 <select
                   value={prefLang}
-                  onChange={(e) => setPrefLang(e.target.value)}
+                  onChange={(e) => setPrefLang(e.target.value as Language)}
                   className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {langOptions.map((opt) => (
