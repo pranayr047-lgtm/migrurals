@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useLanguage, languageNames } from '@/context/LanguageContext';
-import { Menu, X, Globe, ChevronDown } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { Menu, X, Globe, ChevronDown, LogOut, User } from 'lucide-react';
 
 const Navbar = () => {
   const { t, language, setLanguage } = useLanguage();
