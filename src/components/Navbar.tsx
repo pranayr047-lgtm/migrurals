@@ -78,6 +78,26 @@ const Navbar = () => {
             )}
           </div>
 
+          {/* Auth */}
+          {user ? (
+            <div className="flex items-center gap-2">
+              {user.user_metadata?.avatar_url ? (
+                <img src={user.user_metadata.avatar_url} alt="" className="h-8 w-8 rounded-full" />
+              ) : (
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <User className="h-4 w-4" />
+                </div>
+              )}
+              <button onClick={signOut} className="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground" title="Sign out">
+                <LogOut className="h-4 w-4" />
+              </button>
+            </div>
+          ) : (
+            <Link to="/login" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+              {t.login.google_button.includes('Google') ? 'Sign In' : t.login.google_button}
+            </Link>
+          )}
+
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
