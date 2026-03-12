@@ -6,6 +6,7 @@ import { Menu, X, Globe, ChevronDown, LogOut, User } from 'lucide-react';
 
 const Navbar = () => {
   const { t, language, setLanguage } = useLanguage();
+  const { user, signOut } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const location = useLocation();
