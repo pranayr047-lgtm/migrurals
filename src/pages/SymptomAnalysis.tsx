@@ -7,7 +7,7 @@ import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import PageContainer from '@/components/PageContainer';
 import bgImage from '@/assets/bg-rural-health.jpg';
 import { Send, Mic, MicOff, AlertTriangle, Activity, Shield, Stethoscope, Heart, AlertCircle } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+
 import { toast } from 'sonner';
 
 interface AIAnalysis {
