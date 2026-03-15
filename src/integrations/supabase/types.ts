@@ -55,31 +55,55 @@ export type Database = {
       }
       profiles: {
         Row: {
+          age: number | null
+          allergies: string[] | null
           avatar_url: string | null
+          blood_type: string | null
           created_at: string
           display_name: string | null
+          gender: string | null
+          height_cm: number | null
           id: string
+          onboarding_complete: boolean | null
+          pre_existing_conditions: string[] | null
           preferred_language: string | null
           updated_at: string
           user_id: string
+          weight_kg: number | null
         }
         Insert: {
+          age?: number | null
+          allergies?: string[] | null
           avatar_url?: string | null
+          blood_type?: string | null
           created_at?: string
           display_name?: string | null
+          gender?: string | null
+          height_cm?: number | null
           id?: string
+          onboarding_complete?: boolean | null
+          pre_existing_conditions?: string[] | null
           preferred_language?: string | null
           updated_at?: string
           user_id: string
+          weight_kg?: number | null
         }
         Update: {
+          age?: number | null
+          allergies?: string[] | null
           avatar_url?: string | null
+          blood_type?: string | null
           created_at?: string
           display_name?: string | null
+          gender?: string | null
+          height_cm?: number | null
           id?: string
+          onboarding_complete?: boolean | null
+          pre_existing_conditions?: string[] | null
           preferred_language?: string | null
           updated_at?: string
           user_id?: string
+          weight_kg?: number | null
         }
         Relationships: []
       }
