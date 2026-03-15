@@ -8,8 +8,10 @@ import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import OnboardingGuard from "@/components/OnboardingGuard";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import Onboarding from "./pages/Onboarding";
 import Profile from "./pages/Profile";
 import SymptomAnalysis from "./pages/SymptomAnalysis";
 import VoiceAssistant from "./pages/VoiceAssistant";
@@ -31,9 +33,10 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-              <Route path="/symptom-analysis" element={<ProtectedRoute><SymptomAnalysis /></ProtectedRoute>} />
-              <Route path="/voice-assistant" element={<ProtectedRoute><VoiceAssistant /></ProtectedRoute>} />
+              <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><OnboardingGuard><Profile /></OnboardingGuard></ProtectedRoute>} />
+              <Route path="/symptom-analysis" element={<ProtectedRoute><OnboardingGuard><SymptomAnalysis /></OnboardingGuard></ProtectedRoute>} />
+              <Route path="/voice-assistant" element={<ProtectedRoute><OnboardingGuard><VoiceAssistant /></OnboardingGuard></ProtectedRoute>} />
               <Route path="/health-education" element={<HealthEducation />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
