@@ -25,7 +25,7 @@ export const speechLangCodes: Record<Language, string> = {
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: typeof en;
+  t: Record<string, any>;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
