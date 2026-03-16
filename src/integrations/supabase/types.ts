@@ -22,7 +22,9 @@ export type Database = {
           id: string
           input_text: string
           language: string
+          location: string | null
           precaution_keys: string[]
+          region: string | null
           severity_key: string
           user_id: string
           when_to_visit_key: string
@@ -34,7 +36,9 @@ export type Database = {
           id?: string
           input_text: string
           language?: string
+          location?: string | null
           precaution_keys?: string[]
+          region?: string | null
           severity_key: string
           user_id: string
           when_to_visit_key?: string
@@ -46,10 +50,114 @@ export type Database = {
           id?: string
           input_text?: string
           language?: string
+          location?: string | null
           precaution_keys?: string[]
+          region?: string | null
           severity_key?: string
           user_id?: string
           when_to_visit_key?: string
+        }
+        Relationships: []
+      }
+      camp_volunteers: {
+        Row: {
+          assigned_at: string
+          camp_id: string
+          id: string
+          volunteer_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          camp_id: string
+          id?: string
+          volunteer_id: string
+        }
+        Update: {
+          assigned_at?: string
+          camp_id?: string
+          id?: string
+          volunteer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "camp_volunteers_camp_id_fkey"
+            columns: ["camp_id"]
+            isOneToOne: false
+            referencedRelation: "medical_camps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "camp_volunteers_volunteer_id_fkey"
+            columns: ["volunteer_id"]
+            isOneToOne: false
+            referencedRelation: "volunteers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      medical_camps: {
+        Row: {
+          camp_date: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          location: string
+          name: string
+          region: string
+          status: string
+        }
+        Insert: {
+          camp_date: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          location: string
+          name: string
+          region: string
+          status?: string
+        }
+        Update: {
+          camp_date?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          location?: string
+          name?: string
+          region?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      ngo_alerts: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          region: string | null
+          severity: string
+          status: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          region?: string | null
+          severity?: string
+          status?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          region?: string | null
+          severity?: string
+          status?: string
+          title?: string
         }
         Relationships: []
       }
@@ -104,6 +212,36 @@ export type Database = {
           updated_at?: string
           user_id?: string
           weight_kg?: number | null
+        }
+        Relationships: []
+      }
+      volunteers: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          phone: string | null
+          region: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          region: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          region?: string
+          status?: string
         }
         Relationships: []
       }
