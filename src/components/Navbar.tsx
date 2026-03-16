@@ -16,6 +16,7 @@ const Navbar = () => {
     { path: '/symptom-analysis', label: t.nav.symptom_analysis },
     { path: '/voice-assistant', label: t.nav.voice_assistant },
     { path: '/health-education', label: t.nav.health_education },
+    { path: '/ngo', label: (t as any).ngo?.sidebar_overview?.replace('Dashboard ', '') || 'NGO Dashboard' },
     { path: '/about', label: t.nav.about },
   ];
 

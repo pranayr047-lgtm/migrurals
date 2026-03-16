@@ -6,7 +6,7 @@ import ta from '@/translations/ta.json';
 
 type Language = 'en' | 'te' | 'hi' | 'ta';
 
-const translations: Record<Language, typeof en> = { en, te, hi, ta };
+const translations: Record<Language, Record<string, any>> = { en, te, hi, ta };
 
 export const languageNames: Record<Language, string> = {
   en: 'English',
@@ -25,7 +25,7 @@ export const speechLangCodes: Record<Language, string> = {
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: typeof en;
+  t: Record<string, any>;
 }
 
 const LanguageContext = createContext<LanguageContextType>({

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,9 +17,34 @@ import SymptomAnalysis from "./pages/SymptomAnalysis";
 import VoiceAssistant from "./pages/VoiceAssistant";
 import HealthEducation from "./pages/HealthEducation";
 import About from "./pages/About";
+import NgoDashboard from "./pages/ngo/NgoDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+
+const AppLayout = () => {
+  const location = useLocation();
+  const isNgoDashboard = location.pathname.startsWith('/ngo');
+
+  return (
+    <>
+      {!isNgoDashboard && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><OnboardingGuard><Profile /></OnboardingGuard></ProtectedRoute>} />
+        <Route path="/symptom-analysis" element={<ProtectedRoute><OnboardingGuard><SymptomAnalysis /></OnboardingGuard></ProtectedRoute>} />
+        <Route path="/voice-assistant" element={<ProtectedRoute><OnboardingGuard><VoiceAssistant /></OnboardingGuard></ProtectedRoute>} />
+        <Route path="/health-education" element={<HealthEducation />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/ngo" element={<ProtectedRoute><NgoDashboard /></ProtectedRoute>} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {!isNgoDashboard && <Footer />}
+    </>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -29,19 +54,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-              <Route path="/profile" element={<ProtectedRoute><OnboardingGuard><Profile /></OnboardingGuard></ProtectedRoute>} />
-              <Route path="/symptom-analysis" element={<ProtectedRoute><OnboardingGuard><SymptomAnalysis /></OnboardingGuard></ProtectedRoute>} />
-              <Route path="/voice-assistant" element={<ProtectedRoute><OnboardingGuard><VoiceAssistant /></OnboardingGuard></ProtectedRoute>} />
-              <Route path="/health-education" element={<HealthEducation />} />
-              <Route path="/about" element={<About />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
+            <AppLayout />
           </BrowserRouter>
         </TooltipProvider>
       </AuthProvider>
