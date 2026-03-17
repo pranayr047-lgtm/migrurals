@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, FileText, TrendingUp, MapPin,
-  Tent, Users, AlertTriangle, Settings,
+  Tent, Users, AlertTriangle, Settings, Building2,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import type { NgoSection } from '@/pages/ngo/NgoDashboard';
@@ -30,6 +30,7 @@ const NgoSidebar = ({
     { key: 'camps', label: ngo.sidebar_camps || 'Medical Camps', icon: Tent },
     { key: 'volunteers', label: ngo.sidebar_volunteers || 'Volunteers', icon: Users },
     { key: 'alerts', label: ngo.sidebar_alerts || 'Alerts', icon: AlertTriangle },
+    { key: 'profile', label: ngo.sidebar_profile || 'NGO Profile', icon: Building2 },
     { key: 'settings', label: ngo.sidebar_settings || 'Settings', icon: Settings },
   ];
 

@@ -161,13 +161,60 @@ export type Database = {
         }
         Relationships: []
       }
+      ngo_profiles: {
+        Row: {
+          address: string | null
+          admin_name: string
+          created_at: string
+          email: string | null
+          id: string
+          number_of_volunteers: number | null
+          onboarding_complete: boolean | null
+          organization_name: string
+          phone: string | null
+          region_service_area: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          admin_name?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          number_of_volunteers?: number | null
+          onboarding_complete?: boolean | null
+          organization_name?: string
+          phone?: string | null
+          region_service_area?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          admin_name?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          number_of_volunteers?: number | null
+          onboarding_complete?: boolean | null
+          organization_name?: string
+          phone?: string | null
+          region_service_area?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null
+          alcohol_consumption: string | null
           allergies: string[] | null
           avatar_url: string | null
           blood_type: string | null
           created_at: string
+          current_medications: string[] | null
           display_name: string | null
           gender: string | null
           height_cm: number | null
@@ -175,16 +222,20 @@ export type Database = {
           onboarding_complete: boolean | null
           pre_existing_conditions: string[] | null
           preferred_language: string | null
+          smoking_status: string | null
           updated_at: string
           user_id: string
+          village_location: string | null
           weight_kg: number | null
         }
         Insert: {
           age?: number | null
+          alcohol_consumption?: string | null
           allergies?: string[] | null
           avatar_url?: string | null
           blood_type?: string | null
           created_at?: string
+          current_medications?: string[] | null
           display_name?: string | null
           gender?: string | null
           height_cm?: number | null
@@ -192,16 +243,20 @@ export type Database = {
           onboarding_complete?: boolean | null
           pre_existing_conditions?: string[] | null
           preferred_language?: string | null
+          smoking_status?: string | null
           updated_at?: string
           user_id: string
+          village_location?: string | null
           weight_kg?: number | null
         }
         Update: {
           age?: number | null
+          alcohol_consumption?: string | null
           allergies?: string[] | null
           avatar_url?: string | null
           blood_type?: string | null
           created_at?: string
+          current_medications?: string[] | null
           display_name?: string | null
           gender?: string | null
           height_cm?: number | null
@@ -209,8 +264,10 @@ export type Database = {
           onboarding_complete?: boolean | null
           pre_existing_conditions?: string[] | null
           preferred_language?: string | null
+          smoking_status?: string | null
           updated_at?: string
           user_id?: string
+          village_location?: string | null
           weight_kg?: number | null
         }
         Relationships: []
