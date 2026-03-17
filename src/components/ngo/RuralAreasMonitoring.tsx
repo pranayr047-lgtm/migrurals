@@ -1,18 +1,22 @@
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/context/LanguageContext';
+import { supabase } from '@/integrations/supabase/client';
 import { MapPin } from 'lucide-react';
 
-const mockRegions = [
-  { name: 'Warangal Rural', state: 'Telangana', reports: 45, risk: 'high', lat: 17.97, lng: 79.59 },
-  { name: 'Anantapur', state: 'Andhra Pradesh', reports: 32, risk: 'moderate', lat: 14.68, lng: 77.60 },
-  { name: 'Medak', state: 'Telangana', reports: 28, risk: 'moderate', lat: 18.05, lng: 78.26 },
-  { name: 'Nalgonda', state: 'Telangana', reports: 52, risk: 'high', lat: 17.05, lng: 79.27 },
-  { name: 'Kurnool', state: 'Andhra Pradesh', reports: 18, risk: 'low', lat: 15.83, lng: 78.04 },
-  { name: 'Karimnagar', state: 'Telangana', reports: 37, risk: 'moderate', lat: 18.44, lng: 79.13 },
-  { name: 'Adilabad', state: 'Telangana', reports: 41, risk: 'high', lat: 19.67, lng: 78.53 },
-  { name: 'Prakasam', state: 'Andhra Pradesh', reports: 12, risk: 'low', lat: 15.35, lng: 79.56 },
-];
+interface RegionData {
+  region: string;
+  reports: number;
+  highRisk: number;
+}
+
+const riskLevel = (highRisk: number, total: number) => {
+  const ratio = total > 0 ? highRisk / total : 0;
+  if (ratio > 0.3 || highRisk >= 5) return 'high';
+  if (ratio > 0.1 || highRisk >= 2) return 'moderate';
+  return 'low';
+};
 
 const riskColor = (risk: string) => {
   if (risk === 'high') return 'destructive';
@@ -29,10 +33,44 @@ const riskDot = (risk: string) => {
 const RuralAreasMonitoring = () => {
   const { t } = useLanguage();
   const ngo = (t as any).ngo || {};
+  const [regions, setRegions] = useState<RegionData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRegions = async () => {
+      const { data } = await supabase.from('analysis_history').select('region, severity_key');
+      if (data) {
+        const map: Record<string, { reports: number; highRisk: number }> = {};
+        data.forEach((row: any) => {
+          const r = (row.region || '').trim();
+          if (!r) return;
+          if (!map[r]) map[r] = { reports: 0, highRisk: 0 };
+          map[r].reports++;
+          if (row.severity_key === 'high' || row.severity_key === 'moderate_high') map[r].highRisk++;
+        });
+        setRegions(Object.entries(map).map(([region, d]) => ({ region, ...d })).sort((a, b) => b.reports - a.reports));
+      }
+      setLoading(false);
+    };
+    fetchRegions();
+  }, []);
+
+  if (loading) {
+    return <div className="flex items-center justify-center py-16"><div className="h-6 w-6 animate-spin rounded-full border-4 border-primary border-t-transparent" /></div>;
+  }
+
+  if (regions.length === 0) {
+    return (
+      <Card className="card-glass border-border/50">
+        <CardContent className="py-12 text-center text-sm text-muted-foreground">
+          {ngo.no_data || 'No data available yet'}
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <div className="space-y-6">
-      {/* Map Visualization */}
       <Card className="card-glass border-border/50">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -41,22 +79,18 @@ const RuralAreasMonitoring = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="relative rounded-xl bg-muted/50 p-6" style={{ minHeight: 350 }}>
-            {/* Simulated map with region dots */}
-            <div className="relative h-[300px] w-full">
-              {mockRegions.map((region) => {
-                const x = ((region.lng - 77) / 3.5) * 100;
-                const y = ((20 - region.lat) / 6) * 100;
+          <div className="relative rounded-xl bg-muted/50 p-6" style={{ minHeight: 300 }}>
+            <div className="relative h-[260px] w-full">
+              {regions.slice(0, 12).map((region, idx) => {
+                const risk = riskLevel(region.highRisk, region.reports);
+                const x = 10 + (idx % 4) * 25;
+                const y = 10 + Math.floor(idx / 4) * 30;
                 return (
-                  <div
-                    key={region.name}
-                    className="group absolute"
-                    style={{ left: `${Math.max(5, Math.min(90, x))}%`, top: `${Math.max(5, Math.min(90, y))}%` }}
-                  >
-                    <div className={`h-4 w-4 rounded-full ${riskDot(region.risk)} animate-pulse cursor-pointer ring-4 ring-background`} />
+                  <div key={region.region} className="group absolute" style={{ left: `${x}%`, top: `${y}%` }}>
+                    <div className={`h-4 w-4 rounded-full ${riskDot(risk)} animate-pulse cursor-pointer ring-4 ring-background`} />
                     <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 rounded-lg border border-border bg-card px-3 py-2 text-xs shadow-elevated opacity-0 transition-opacity group-hover:opacity-100 whitespace-nowrap z-10">
-                      <p className="font-semibold text-foreground">{region.name}</p>
-                      <p className="text-muted-foreground">{region.reports} reports</p>
+                      <p className="font-semibold text-foreground">{region.region}</p>
+                      <p className="text-muted-foreground">{region.reports} {ngo.reports_label || 'symptom reports'}</p>
                     </div>
                   </div>
                 );
@@ -69,23 +103,22 @@ const RuralAreasMonitoring = () => {
         </CardContent>
       </Card>
 
-      {/* Region List */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {mockRegions.map((region) => (
-          <Card key={region.name} className="card-glass border-border/50">
-            <CardContent className="p-4">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="font-semibold text-foreground">{region.name}</p>
-                  <p className="text-xs text-muted-foreground">{region.state}</p>
+        {regions.map((region) => {
+          const risk = riskLevel(region.highRisk, region.reports);
+          return (
+            <Card key={region.region} className="card-glass border-border/50">
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between">
+                  <p className="font-semibold text-foreground">{region.region}</p>
+                  <Badge variant={riskColor(risk)}>{risk}</Badge>
                 </div>
-                <Badge variant={riskColor(region.risk)}>{region.risk}</Badge>
-              </div>
-              <p className="mt-2 text-lg font-bold text-foreground">{region.reports}</p>
-              <p className="text-xs text-muted-foreground">{ngo.reports_label || 'symptom reports'}</p>
-            </CardContent>
-          </Card>
-        ))}
+                <p className="mt-2 text-lg font-bold text-foreground">{region.reports}</p>
+                <p className="text-xs text-muted-foreground">{ngo.reports_label || 'symptom reports'}</p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );

@@ -9,9 +9,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import OnboardingGuard from "@/components/OnboardingGuard";
+import NgoOnboardingGuard from "@/components/NgoOnboardingGuard";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Onboarding from "./pages/Onboarding";
+import NgoOnboarding from "./pages/NgoOnboarding";
 import Profile from "./pages/Profile";
 import SymptomAnalysis from "./pages/SymptomAnalysis";
 import VoiceAssistant from "./pages/VoiceAssistant";
@@ -33,12 +35,13 @@ const AppLayout = () => {
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/onboarding" element={<ProtectedRoute allowedRoles={['user']}><Onboarding /></ProtectedRoute>} />
+        <Route path="/ngo/onboarding" element={<ProtectedRoute allowedRoles={['ngo_admin']}><NgoOnboarding /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute allowedRoles={['user']}><OnboardingGuard><Profile /></OnboardingGuard></ProtectedRoute>} />
         <Route path="/symptom-analysis" element={<ProtectedRoute allowedRoles={['user']}><OnboardingGuard><SymptomAnalysis /></OnboardingGuard></ProtectedRoute>} />
         <Route path="/voice-assistant" element={<ProtectedRoute allowedRoles={['user']}><OnboardingGuard><VoiceAssistant /></OnboardingGuard></ProtectedRoute>} />
         <Route path="/health-education" element={<HealthEducation />} />
         <Route path="/about" element={<About />} />
-        <Route path="/ngo" element={<ProtectedRoute allowedRoles={['ngo_admin']}><NgoDashboard /></ProtectedRoute>} />
+        <Route path="/ngo" element={<ProtectedRoute allowedRoles={['ngo_admin']}><NgoOnboardingGuard><NgoDashboard /></NgoOnboardingGuard></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!isNgoDashboard && <Footer />}
