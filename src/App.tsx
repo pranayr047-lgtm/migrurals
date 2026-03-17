@@ -32,13 +32,13 @@ const AppLayout = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><OnboardingGuard><Profile /></OnboardingGuard></ProtectedRoute>} />
-        <Route path="/symptom-analysis" element={<ProtectedRoute><OnboardingGuard><SymptomAnalysis /></OnboardingGuard></ProtectedRoute>} />
-        <Route path="/voice-assistant" element={<ProtectedRoute><OnboardingGuard><VoiceAssistant /></OnboardingGuard></ProtectedRoute>} />
+        <Route path="/onboarding" element={<ProtectedRoute allowedRoles={['user']}><Onboarding /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute allowedRoles={['user']}><OnboardingGuard><Profile /></OnboardingGuard></ProtectedRoute>} />
+        <Route path="/symptom-analysis" element={<ProtectedRoute allowedRoles={['user']}><OnboardingGuard><SymptomAnalysis /></OnboardingGuard></ProtectedRoute>} />
+        <Route path="/voice-assistant" element={<ProtectedRoute allowedRoles={['user']}><OnboardingGuard><VoiceAssistant /></OnboardingGuard></ProtectedRoute>} />
         <Route path="/health-education" element={<HealthEducation />} />
         <Route path="/about" element={<About />} />
-        <Route path="/ngo" element={<ProtectedRoute><NgoDashboard /></ProtectedRoute>} />
+        <Route path="/ngo" element={<ProtectedRoute allowedRoles={['ngo_admin']}><NgoDashboard /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!isNgoDashboard && <Footer />}
