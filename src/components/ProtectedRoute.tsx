@@ -2,8 +2,15 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, loading } = useAuth();
+type AppRole = 'user' | 'ngo_admin';
+
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  allowedRoles?: AppRole[];
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles }) => {
+  const { user, loading, role } = useAuth();
 
   if (loading) {
     return (
@@ -14,6 +21,12 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   }
 
   if (!user) return <Navigate to="/login" replace />;
+
+  if (allowedRoles && role && !allowedRoles.includes(role)) {
+    // Redirect to the appropriate home based on role
+    if (role === 'ngo_admin') return <Navigate to="/ngo" replace />;
+    return <Navigate to="/symptom-analysis" replace />;
+  }
 
   return <>{children}</>;
 };

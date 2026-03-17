@@ -166,6 +166,8 @@
   "login": {
     "subtitle": "Sign in to access health services",
     "google_button": "Continue with Google",
+    "user_login": "User Login (Google)",
+    "ngo_login": "NGO Login (Google)",
     "disclaimer": "By signing in, you agree that this tool provides general health information only and is not a substitute for professional medical advice."
   },
   "symptom_results": {
