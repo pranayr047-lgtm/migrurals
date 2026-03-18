@@ -85,11 +85,11 @@
     "disclaimer_desc": "This application is designed for informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider."
   },
   "footer": {
-    "description": "AI-powered healthcare assistant for rural and underserved communities.",
+    "description": "AI-powered healthcare assistant for rural and migrant communities.",
     "quick_links": "Quick Links",
     "disclaimer": "Disclaimer",
     "disclaimer_text": "This tool provides general health information only. It is not a substitute for professional medical advice.",
-    "copyright": "© 2026 AI Rural Healthcare Assistant. All rights reserved."
+    "copyright": "© 2026 MIGRurals. All rights reserved."
   },
   "common": {
     "get_health_advice": "Get Health Advice",
