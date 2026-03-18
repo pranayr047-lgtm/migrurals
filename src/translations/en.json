@@ -59,20 +59,173 @@
   "education": {
     "title": "Health Education",
     "subtitle": "Learn about common health conditions, prevention, and hygiene practices",
+    "source_who": "Source: World Health Organization (WHO)",
+    "key_facts": "Key Facts",
+    "prevention": "Prevention",
+    "when_to_see_doctor": "When to See a Doctor",
+    "treatment": "Home Remedies & Treatment",
     "topics": {
       "fever": "Understanding Fever",
       "fever_desc": "Fever is a temporary increase in body temperature. Learn when it's serious and basic remedies.",
+      "fever_facts": [
+        "Normal body temperature is around 36.1°C to 37.2°C (97°F to 99°F)",
+        "Fever is generally defined as a temperature above 38°C (100.4°F)",
+        "Fever itself is not a disease — it is a symptom of an underlying condition",
+        "Most fevers are caused by infections such as cold, flu, or COVID-19",
+        "Children under 5 are more vulnerable to high fevers"
+      ],
+      "fever_prevention": [
+        "Wash hands frequently with soap and water",
+        "Avoid close contact with sick individuals",
+        "Keep living spaces clean and well-ventilated",
+        "Ensure proper nutrition to maintain immunity",
+        "Get recommended vaccinations on time"
+      ],
+      "fever_treatment": [
+        "Rest and drink plenty of fluids (water, ORS, juices)",
+        "Use a damp cloth on the forehead to reduce temperature",
+        "Take paracetamol as directed (not aspirin for children)",
+        "Wear light, comfortable clothing",
+        "Monitor temperature every 4-6 hours"
+      ],
+      "fever_doctor": "Seek medical help if fever exceeds 103°F (39.4°C), lasts more than 3 days, is accompanied by severe headache, stiff neck, rash, difficulty breathing, or persistent vomiting.",
       "hygiene": "Personal Hygiene",
       "hygiene_desc": "Simple hygiene practices that prevent many diseases. Handwashing, clean water, and sanitation.",
+      "hygiene_facts": [
+        "Handwashing with soap can reduce diarrheal diseases by 30% (WHO)",
+        "2.3 billion people worldwide lack basic sanitation facilities",
+        "Contaminated water causes 485,000 diarrheal deaths each year",
+        "Proper hygiene prevents spread of respiratory infections by up to 20%",
+        "Open defecation leads to spread of cholera, typhoid, and hepatitis"
+      ],
+      "hygiene_prevention": [
+        "Wash hands with soap for at least 20 seconds before eating and after using the toilet",
+        "Use clean, safe drinking water — boil water if unsure of quality",
+        "Keep food covered and stored properly to prevent contamination",
+        "Bathe daily and wear clean clothes",
+        "Use toilets/latrines — avoid open defecation",
+        "Trim nails regularly and keep surroundings clean"
+      ],
+      "hygiene_treatment": [
+        "If suffering from a hygiene-related illness, use ORS for dehydration",
+        "Maintain fluid intake with clean water",
+        "Isolate infected individuals to prevent spread"
+      ],
+      "hygiene_doctor": "Visit a doctor if you experience persistent diarrhea, bloody stool, high fever with rash, or any skin infection that worsens over time.",
       "nutrition": "Nutrition Basics",
       "nutrition_desc": "Balanced diet essentials for rural communities. Affordable and locally available nutritious foods.",
+      "nutrition_facts": [
+        "Malnutrition affects 1 in 3 people globally (WHO)",
+        "Undernutrition causes 45% of deaths in children under 5",
+        "Iron deficiency is the most common nutritional deficiency worldwide",
+        "A balanced diet includes carbohydrates, proteins, fats, vitamins, and minerals",
+        "Exclusive breastfeeding for 6 months provides ideal nutrition for infants"
+      ],
+      "nutrition_prevention": [
+        "Eat a variety of foods including grains, lentils, vegetables, and fruits",
+        "Include protein sources: dal, eggs, milk, soy, and fish",
+        "Eat iron-rich foods: green leafy vegetables, jaggery, dates",
+        "Use iodized salt for cooking",
+        "Ensure pregnant women take iron and folic acid supplements",
+        "Feed children nutrient-rich complementary foods after 6 months"
+      ],
+      "nutrition_treatment": [
+        "For malnourished children: provide energy-dense foods like khichdi with ghee",
+        "Give ORS and zinc supplements during diarrhea",
+        "Include Vitamin A rich foods: carrots, papaya, mango, sweet potato"
+      ],
+      "nutrition_doctor": "See a doctor if a child shows signs of severe malnutrition: visible wasting, swollen feet/face, hair changes, extreme weakness, or failure to grow.",
       "first_aid": "Basic First Aid",
       "first_aid_desc": "Essential first aid knowledge for common injuries, burns, and emergencies.",
+      "first_aid_facts": [
+        "Unintentional injuries are among the top causes of death in rural areas",
+        "Prompt first aid can prevent an injury from becoming life-threatening",
+        "Burns are classified into 3 degrees based on severity",
+        "Snakebites cause approximately 81,000-138,000 deaths per year globally (WHO)",
+        "Keeping a basic first aid kit at home can save lives"
+      ],
+      "first_aid_prevention": [
+        "Keep sharp objects and chemicals away from children",
+        "Use protective footwear to prevent snakebites and injuries",
+        "Store medicines and cleaning agents separately",
+        "Ensure proper lighting in homes and pathways",
+        "Learn basic CPR and choking relief techniques"
+      ],
+      "first_aid_treatment": [
+        "For cuts: Clean with clean water, apply antiseptic, cover with clean cloth",
+        "For burns: Cool with running water for 10-20 minutes, do not apply ice or toothpaste",
+        "For snakebite: Keep patient calm, immobilize the limb, rush to hospital — do NOT tie tightly or cut the wound",
+        "For choking: Perform back blows and abdominal thrusts",
+        "For fractures: Immobilize the area and seek medical help immediately"
+      ],
+      "first_aid_doctor": "Seek emergency medical help for deep wounds, severe burns, animal/snake bites, head injuries, fractures, persistent bleeding, or unconsciousness.",
       "maternal": "Maternal Health",
       "maternal_desc": "Important health practices during pregnancy, childbirth, and postnatal care.",
+      "maternal_facts": [
+        "Approximately 810 women die daily from preventable pregnancy-related causes (WHO)",
+        "Most maternal deaths occur in low-resource settings and are preventable",
+        "At least 4 antenatal care visits are recommended during pregnancy",
+        "Skilled birth attendants can reduce maternal mortality significantly",
+        "Postnatal care within 24 hours is critical for mother and newborn"
+      ],
+      "maternal_prevention": [
+        "Start antenatal check-ups in the first trimester",
+        "Take iron, folic acid, and calcium supplements as prescribed",
+        "Get Tetanus Toxoid (TT) vaccination during pregnancy",
+        "Eat nutritious food: green vegetables, milk, eggs, fruits",
+        "Avoid heavy lifting, tobacco, alcohol, and self-medication",
+        "Plan for delivery at a health facility with skilled attendants"
+      ],
+      "maternal_treatment": [
+        "For morning sickness: eat small, frequent meals; ginger tea may help",
+        "For swollen feet: elevate legs and reduce salt intake",
+        "Initiate breastfeeding within 1 hour of birth",
+        "Keep the newborn warm and ensure exclusive breastfeeding for 6 months"
+      ],
+      "maternal_doctor": "Seek immediate medical help for vaginal bleeding, severe headache with blurred vision, high fever, convulsions, reduced fetal movement, or water breaking before due date.",
       "waterborne": "Waterborne Diseases",
-      "waterborne_desc": "Prevention and treatment of diseases caused by contaminated water sources."
+      "waterborne_desc": "Prevention and treatment of diseases caused by contaminated water sources.",
+      "waterborne_facts": [
+        "Waterborne diseases cause an estimated 3.4 million deaths per year (WHO)",
+        "Common waterborne diseases: Cholera, Typhoid, Hepatitis A, Dysentery",
+        "Unsafe water, sanitation, and hygiene cause 60% of diarrheal disease burden",
+        "Children under 5 are most vulnerable to waterborne diseases",
+        "Contaminated water is a major issue during floods and monsoon season"
+      ],
+      "waterborne_prevention": [
+        "Always boil or filter water before drinking",
+        "Store water in clean, covered containers",
+        "Wash hands thoroughly before eating and after using the toilet",
+        "Use chlorine tablets or water purifiers where available",
+        "Avoid eating raw food washed with unclean water",
+        "Ensure proper drainage and avoid stagnant water near homes"
+      ],
+      "waterborne_treatment": [
+        "For diarrhea: Give ORS (Oral Rehydration Solution) immediately",
+        "Continue feeding — do not stop food during diarrhea",
+        "Give zinc supplements to children with diarrhea for 10-14 days",
+        "For cholera symptoms: rehydrate aggressively and seek medical help"
+      ],
+      "waterborne_doctor": "Seek medical help immediately for watery diarrhea with vomiting, blood in stool, high fever with diarrhea, signs of severe dehydration (sunken eyes, dry mouth, no urination), or symptoms lasting more than 2 days."
     }
+  },
+  "emergency": {
+    "title": "Emergency Helpline Numbers",
+    "subtitle": "Important numbers to call during medical emergencies in India",
+    "call_now": "Call Now",
+    "note": "These numbers are toll-free and available 24/7 across India.",
+    "numbers": [
+      { "name": "National Emergency Number", "number": "112", "desc": "Single emergency number for Police, Fire, and Ambulance" },
+      { "name": "Ambulance / Emergency Medical", "number": "108", "desc": "Free emergency ambulance service available across most states" },
+      { "name": "Health Helpline (Govt. of India)", "number": "104", "desc": "Health advice, disease information, and hospital directory" },
+      { "name": "COVID-19 Helpline", "number": "1075", "desc": "Dedicated helpline for COVID-19 related queries and assistance" },
+      { "name": "Women Helpline", "number": "181", "desc": "Women in distress can call for immediate help and support" },
+      { "name": "Child Helpline", "number": "1098", "desc": "For children in need of care and protection" },
+      { "name": "Mental Health Helpline (NIMHANS)", "number": "080-46110007", "desc": "Free mental health counseling and support" },
+      { "name": "Poison Information Centre (AIIMS)", "number": "1800-116-117", "desc": "Guidance for accidental poisoning cases" },
+      { "name": "Blood Bank (Red Cross)", "number": "1800-11-1234", "desc": "Toll-free number for blood bank information and requests" },
+      { "name": "TB Helpline", "number": "1800-11-6666", "desc": "For tuberculosis information, testing, and treatment support" }
+    ]
   },
   "about": {
     "title": "About Us",
