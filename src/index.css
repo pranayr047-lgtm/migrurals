@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -36,10 +36,12 @@
 
     --radius: 0.75rem;
 
-    --gradient-hero: linear-gradient(135deg, hsl(174 78% 26% / 0.9), hsl(217 91% 53% / 0.8));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.95), hsl(150 10% 97% / 0.9));
+    --gradient-hero: linear-gradient(135deg, hsl(174 78% 20% / 0.92), hsl(217 91% 40% / 0.85));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.97), hsl(150 10% 97% / 0.92));
+    --gradient-accent: linear-gradient(135deg, hsl(174 78% 26%), hsl(217 91% 53%));
     --shadow-card: 0 4px 24px -4px hsl(174 78% 26% / 0.1);
-    --shadow-elevated: 0 12px 40px -8px hsl(174 78% 26% / 0.15);
+    --shadow-elevated: 0 12px 40px -8px hsl(174 78% 26% / 0.18);
+    --shadow-glow: 0 0 40px -10px hsl(174 78% 26% / 0.25);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -88,10 +90,10 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', 'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', 'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', sans-serif;
     @apply font-bold tracking-tight;
   }
 }
@@ -100,12 +102,59 @@
   .bg-hero-overlay {
     background: var(--gradient-hero);
   }
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
   .card-glass {
     background: var(--gradient-card);
     box-shadow: var(--shadow-card);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
   }
   .shadow-elevated {
     box-shadow: var(--shadow-elevated);
+  }
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  .text-gradient {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Shimmer effect */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.08), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+
+  /* Slide up stagger */
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+
+  /* Background parallax dots */
+  .bg-dots {
+    background-image: radial-gradient(circle, hsl(var(--primary) / 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }

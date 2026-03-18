@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { Navigate } from 'react-router-dom';
-import PageContainer from '@/components/PageContainer';
-import bgImage from '@/assets/bg-rural-health.jpg';
-import { Heart, Users, Building2 } from 'lucide-react';
+import { Heart, Users, Building2, Shield, Globe } from 'lucide-react';
+import bgMigrant from '@/assets/bg-migrant-workers.jpg';
+import logo from '@/assets/logo-migrurals.png';
 
 const Login = () => {
   const { t } = useLanguage();
@@ -22,49 +22,80 @@ const Login = () => {
   if (user) return <Navigate to="/symptom-analysis" replace />;
 
   return (
-    <PageContainer backgroundImage={bgImage}>
-      <div className="flex min-h-[calc(100vh-160px)] items-center justify-center px-4">
+    <div className="relative min-h-[calc(100vh-70px)] flex items-center justify-center overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <img src={bgMigrant} alt="" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/80 to-background/95" />
+        <div className="absolute inset-0 bg-dots" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md card-glass rounded-2xl border border-border p-8 shadow-elevated"
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="card-glass rounded-3xl border border-border p-8 shadow-elevated"
         >
           {/* Logo */}
           <div className="mb-8 flex flex-col items-center">
-            <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
-              <Heart className="h-7 w-7 text-primary-foreground" />
-            </div>
-            <h1 className="text-xl font-bold text-foreground">{t.app_name}</h1>
+            <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring' }}>
+              <img src={logo} alt="MIGRurals" className="h-16 w-16 mb-3 rounded-2xl object-contain" />
+            </motion.div>
+            <h1 className="text-xl font-extrabold text-foreground tracking-tight">
+              MIGR<span className="text-primary">urals</span>
+            </h1>
             <p className="mt-1 text-sm text-muted-foreground">{t.login.subtitle}</p>
+          </div>
+
+          {/* Features strip */}
+          <div className="mb-6 flex justify-center gap-4">
+            {[
+              { icon: Shield, label: 'Secure' },
+              { icon: Globe, label: '4 Languages' },
+              { icon: Heart, label: 'Free' },
+            ].map((f, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
+                className="flex items-center gap-1 text-xs text-muted-foreground">
+                <f.icon className="h-3 w-3 text-primary" />
+                <span>{f.label}</span>
+              </motion.div>
+            ))}
           </div>
 
           {/* Two login buttons */}
           <div className="space-y-3">
-            <button
+            <motion.button
+              initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => signInWithGoogle('user')}
-              className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5 text-sm font-medium text-foreground shadow-sm transition-all hover:bg-muted hover:shadow-md"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-border bg-card px-4 py-4 text-sm font-medium text-foreground shadow-sm transition-all hover:bg-muted hover:shadow-md"
             >
               <Users className="h-5 w-5 text-primary" />
               <span>{t.login.user_login ?? 'User Login (Google)'}</span>
               <GoogleIcon />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => signInWithGoogle('ngo_admin')}
-              className="flex w-full items-center justify-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3.5 text-sm font-medium text-foreground shadow-sm transition-all hover:bg-primary/10 hover:shadow-md"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-4 text-sm font-medium text-foreground shadow-sm transition-all hover:bg-primary/10 hover:shadow-md"
             >
               <Building2 className="h-5 w-5 text-primary" />
               <span>{t.login.ngo_login ?? 'NGO Login (Google)'}</span>
               <GoogleIcon />
-            </button>
+            </motion.button>
           </div>
 
-          <p className="mt-6 text-center text-xs text-muted-foreground">
+          <p className="mt-6 text-center text-xs text-muted-foreground leading-relaxed">
             {t.login.disclaimer}
           </p>
         </motion.div>
       </div>
-    </PageContainer>
+    </div>
   );
 };
 
