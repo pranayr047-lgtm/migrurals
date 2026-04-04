@@ -18,6 +18,15 @@ interface AIAnalysis {
   when_to_visit: string;
   medication_warnings?: string[];
   lifestyle_advice?: string;
+  confidence_score?: number;
+  _evaluation?: {
+    model_used: string;
+    latency_ms: number;
+    detected_symptoms_count: number;
+    conditions_count: number;
+    confidence_score: number | null;
+    response_valid: boolean;
+  };
 }
 
 interface ChatMessage {
