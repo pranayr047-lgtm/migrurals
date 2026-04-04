@@ -86,8 +86,9 @@ const SymptomAnalysis = () => {
     setIsAnalyzing(true);
 
     try {
+      const modelPreference = localStorage.getItem('migrurals_ai_model') || 'gemini_flash';
       const { data, error } = await supabase.functions.invoke('analyze-symptoms', {
-        body: { symptoms: text, language, userProfile },
+        body: { symptoms: text, language, userProfile, modelPreference },
       });
 
       if (error) throw error;
