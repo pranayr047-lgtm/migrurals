@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, FileText, TrendingUp, MapPin,
-  Tent, Users, AlertTriangle, Settings, Building2,
+  Tent, Users, AlertTriangle, Settings, Building2, Brain,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import type { NgoSection } from '@/pages/ngo/NgoDashboard';
