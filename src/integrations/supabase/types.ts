@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_evaluation_logs: {
+        Row: {
+          conditions_count: number
+          created_at: string
+          detected_symptoms_count: number
+          id: string
+          input_text: string
+          language: string
+          latency_ms: number
+          model_used: string
+          response_valid: boolean
+          severity: string | null
+          user_id: string
+        }
+        Insert: {
+          conditions_count?: number
+          created_at?: string
+          detected_symptoms_count?: number
+          id?: string
+          input_text: string
+          language?: string
+          latency_ms?: number
+          model_used?: string
+          response_valid?: boolean
+          severity?: string | null
+          user_id: string
+        }
+        Update: {
+          conditions_count?: number
+          created_at?: string
+          detected_symptoms_count?: number
+          id?: string
+          input_text?: string
+          language?: string
+          latency_ms?: number
+          model_used?: string
+          response_valid?: boolean
+          severity?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       analysis_history: {
         Row: {
           conditions: Json

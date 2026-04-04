@@ -18,6 +18,15 @@ interface AIAnalysis {
   when_to_visit: string;
   medication_warnings?: string[];
   lifestyle_advice?: string;
+  confidence_score?: number;
+  _evaluation?: {
+    model_used: string;
+    latency_ms: number;
+    detected_symptoms_count: number;
+    conditions_count: number;
+    confidence_score: number | null;
+    response_valid: boolean;
+  };
 }
 
 interface ChatMessage {
@@ -77,8 +86,9 @@ const SymptomAnalysis = () => {
     setIsAnalyzing(true);
 
     try {
+      const modelPreference = localStorage.getItem('migrurals_ai_model') || 'gemini_flash';
       const { data, error } = await supabase.functions.invoke('analyze-symptoms', {
-        body: { symptoms: text, language, userProfile },
+        body: { symptoms: text, language, userProfile, modelPreference },
       });
 
       if (error) throw error;
@@ -90,7 +100,7 @@ const SymptomAnalysis = () => {
         const analysis = data as AIAnalysis;
         setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: '', analysis }]);
 
-        // Save to history
+        // Save to history + evaluation log
         if (user) {
           await supabase.from('analysis_history').insert([{
             user_id: user.id,
@@ -102,6 +112,21 @@ const SymptomAnalysis = () => {
             when_to_visit_key: analysis.when_to_visit,
             language,
           }]);
+
+          // Log evaluation metrics
+          if (analysis._evaluation) {
+            await supabase.from('ai_evaluation_logs').insert([{
+              user_id: user.id,
+              input_text: text,
+              model_used: analysis._evaluation.model_used,
+              latency_ms: analysis._evaluation.latency_ms,
+              detected_symptoms_count: analysis._evaluation.detected_symptoms_count,
+              conditions_count: analysis._evaluation.conditions_count,
+              severity: analysis.severity,
+              language,
+              response_valid: analysis._evaluation.response_valid,
+            }]);
+          }
         }
       }
     } catch (e) {
@@ -194,6 +219,17 @@ const SymptomAnalysis = () => {
                         <p className="font-medium text-accent-foreground">🏥 {t.symptom.when_to_visit}</p>
                         <p className="text-xs text-muted-foreground">{msg.analysis.when_to_visit}</p>
                       </div>
+
+                      {/* Evaluation metadata */}
+                      {msg.analysis._evaluation && (
+                        <div className="flex items-center gap-3 text-[10px] text-muted-foreground/60 pt-1 border-t border-border/30">
+                          <span>🤖 {msg.analysis._evaluation.model_used}</span>
+                          <span>⚡ {msg.analysis._evaluation.latency_ms}ms</span>
+                          {msg.analysis.confidence_score != null && (
+                            <span>🎯 {Math.round(msg.analysis.confidence_score * 100)}%</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
