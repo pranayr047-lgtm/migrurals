@@ -13,9 +13,10 @@ import Volunteers from '@/components/ngo/Volunteers';
 import AlertsPanel from '@/components/ngo/AlertsPanel';
 import NgoSettings from '@/components/ngo/NgoSettings';
 import NgoProfile from '@/components/ngo/NgoProfile';
+import AIModelSettings from '@/components/ngo/AIModelSettings';
 import { Globe, ChevronDown, LogOut, Bell, User } from 'lucide-react';
 
-export type NgoSection = 'overview' | 'symptoms' | 'trends' | 'areas' | 'camps' | 'volunteers' | 'alerts' | 'settings' | 'profile';
+export type NgoSection = 'overview' | 'symptoms' | 'trends' | 'areas' | 'camps' | 'volunteers' | 'alerts' | 'settings' | 'profile' | 'ai_settings';
 
 const NgoDashboard = () => {
   const [activeSection, setActiveSection] = useState<NgoSection>('overview');
