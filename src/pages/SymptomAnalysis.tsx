@@ -219,6 +219,17 @@ const SymptomAnalysis = () => {
                         <p className="font-medium text-accent-foreground">🏥 {t.symptom.when_to_visit}</p>
                         <p className="text-xs text-muted-foreground">{msg.analysis.when_to_visit}</p>
                       </div>
+
+                      {/* Evaluation metadata */}
+                      {msg.analysis._evaluation && (
+                        <div className="flex items-center gap-3 text-[10px] text-muted-foreground/60 pt-1 border-t border-border/30">
+                          <span>🤖 {msg.analysis._evaluation.model_used}</span>
+                          <span>⚡ {msg.analysis._evaluation.latency_ms}ms</span>
+                          {msg.analysis.confidence_score != null && (
+                            <span>🎯 {Math.round(msg.analysis.confidence_score * 100)}%</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
