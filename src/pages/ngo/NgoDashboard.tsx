@@ -41,6 +41,7 @@ const NgoDashboard = () => {
       case 'alerts': return <AlertsPanel />;
       case 'settings': return <NgoSettings />;
       case 'profile': return <NgoProfile />;
+      case 'ai_settings': return <AIModelSettings />;
       default: return <DashboardOverview />;
     }
   };

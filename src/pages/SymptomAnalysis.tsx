@@ -100,7 +100,7 @@ const SymptomAnalysis = () => {
         const analysis = data as AIAnalysis;
         setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: '', analysis }]);
 
-        // Save to history
+        // Save to history + evaluation log
         if (user) {
           await supabase.from('analysis_history').insert([{
             user_id: user.id,
@@ -112,6 +112,21 @@ const SymptomAnalysis = () => {
             when_to_visit_key: analysis.when_to_visit,
             language,
           }]);
+
+          // Log evaluation metrics
+          if (analysis._evaluation) {
+            await supabase.from('ai_evaluation_logs').insert([{
+              user_id: user.id,
+              input_text: text,
+              model_used: analysis._evaluation.model_used,
+              latency_ms: analysis._evaluation.latency_ms,
+              detected_symptoms_count: analysis._evaluation.detected_symptoms_count,
+              conditions_count: analysis._evaluation.conditions_count,
+              severity: analysis.severity,
+              language,
+              response_valid: analysis._evaluation.response_valid,
+            }]);
+          }
         }
       }
     } catch (e) {
