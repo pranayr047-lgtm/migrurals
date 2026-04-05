@@ -64,7 +64,7 @@ const SymptomAnalysis = () => {
   // Load user health profile for AI context
   useEffect(() => {
     if (!user) return;
-    supabase.from('profiles').select('age, gender, blood_type, height_cm, weight_kg, allergies, pre_existing_conditions')
+    supabase.from('profiles').select('age, gender, blood_type, height_cm, weight_kg, allergies, pre_existing_conditions, village_location')
       .eq('user_id', user.id).single().then(({ data }) => {
         if (data) setUserProfile(data as unknown as Record<string, unknown>);
       });
