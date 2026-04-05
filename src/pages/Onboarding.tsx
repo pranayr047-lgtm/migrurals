@@ -9,7 +9,8 @@ import bgImage from '@/assets/bg-rural-health.jpg';
 import { User, Heart, Ruler, Weight, Droplets, AlertCircle, ChevronRight, ChevronLeft, MapPin, Pill, Cigarette, Wine } from 'lucide-react';
 
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-const GENDERS = ['Male', 'Female', 'Other'];
+const GENDER_KEYS = ['Male', 'Female', 'Other'] as const;
+const GENDER_TRANSLATION_KEYS: Record<string, string> = { Male: 'gender_male', Female: 'gender_female', Other: 'gender_other' };
 const COMMON_CONDITIONS = [
   'Diabetes', 'Hypertension', 'Asthma', 'Heart Disease',
   'Thyroid', 'Arthritis', 'Anemia', 'Kidney Disease',
@@ -18,8 +19,10 @@ const COMMON_ALLERGIES = [
   'Penicillin', 'Sulfa drugs', 'Aspirin', 'Peanuts',
   'Dust', 'Pollen', 'Latex', 'Shellfish',
 ];
-const SMOKING_OPTIONS = ['Never', 'Former', 'Current'];
-const ALCOHOL_OPTIONS = ['Never', 'Occasional', 'Regular'];
+const SMOKING_KEYS = ['Never', 'Former', 'Current'] as const;
+const SMOKING_TRANSLATION_KEYS: Record<string, string> = { Never: 'smoking_never', Former: 'smoking_former', Current: 'smoking_current' };
+const ALCOHOL_KEYS = ['Never', 'Occasional', 'Regular'] as const;
+const ALCOHOL_TRANSLATION_KEYS: Record<string, string> = { Never: 'alcohol_never', Occasional: 'alcohol_occasional', Regular: 'alcohol_regular' };
 
 const Onboarding = () => {
   const { user } = useAuth();
@@ -106,10 +109,10 @@ const Onboarding = () => {
             <div>
               <label className="mb-1 block text-sm font-medium text-foreground">{ob.gender || 'Gender'} *</label>
               <div className="flex gap-2">
-                {GENDERS.map(g => (
+                {GENDER_KEYS.map(g => (
                   <button key={g} onClick={() => setGender(g)}
                     className={`flex-1 rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${gender === g ? chipActive : chipInactive}`}>
-                    {g}
+                    {ob[GENDER_TRANSLATION_KEYS[g]] || g}
                   </button>
                 ))}
               </div>
@@ -172,10 +175,10 @@ const Onboarding = () => {
                 <Cigarette className="h-4 w-4 text-muted-foreground" /> {ob.smoking || 'Smoking Status'}
               </label>
               <div className="flex gap-2">
-                {SMOKING_OPTIONS.map(s => (
+                {SMOKING_KEYS.map(s => (
                   <button key={s} onClick={() => setSmokingStatus(s)}
                     className={`flex-1 rounded-xl border px-2 py-2 text-xs font-medium transition-colors ${smokingStatus === s ? chipActive : chipInactive}`}>
-                    {s}
+                    {ob[SMOKING_TRANSLATION_KEYS[s]] || s}
                   </button>
                 ))}
               </div>
@@ -185,10 +188,10 @@ const Onboarding = () => {
                 <Wine className="h-4 w-4 text-muted-foreground" /> {ob.alcohol || 'Alcohol'}
               </label>
               <div className="flex gap-2">
-                {ALCOHOL_OPTIONS.map(a => (
+                {ALCOHOL_KEYS.map(a => (
                   <button key={a} onClick={() => setAlcoholConsumption(a)}
                     className={`flex-1 rounded-xl border px-2 py-2 text-xs font-medium transition-colors ${alcoholConsumption === a ? chipActive : chipInactive}`}>
-                    {a}
+                    {ob[ALCOHOL_TRANSLATION_KEYS[a]] || a}
                   </button>
                 ))}
               </div>

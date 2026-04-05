@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage, speechLangCodes } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import PageContainer from '@/components/PageContainer';
 import bgImage from '@/assets/bg-rural-health.jpg';
-import { Send, Mic, MicOff, AlertTriangle, Activity, Shield, Stethoscope, Heart, AlertCircle } from 'lucide-react';
+import { Send, Mic, MicOff, AlertTriangle, Activity, Shield, Stethoscope, Heart, AlertCircle, Volume2, Square } from 'lucide-react';
 
 import { toast } from 'sonner';
 
@@ -44,8 +44,54 @@ const SymptomAnalysis = () => {
   const [input, setInput] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [userProfile, setUserProfile] = useState<Record<string, unknown> | null>(null);
+  const [speakingMsgId, setSpeakingMsgId] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const { isListening, transcript, startListening, stopListening, isSupported } = useSpeechRecognition();
+
+  const stopSpeaking = useCallback(() => {
+    window.speechSynthesis.cancel();
+    setSpeakingMsgId(null);
+    utteranceRef.current = null;
+  }, []);
+
+  const speakAnalysis = useCallback((analysis: AIAnalysis, msgId: string) => {
+    if (speakingMsgId === msgId) {
+      stopSpeaking();
+      return;
+    }
+    stopSpeaking();
+
+    const langCode = speechLangCodes[language as keyof typeof speechLangCodes] || 'en-US';
+
+    const parts: string[] = [];
+    if (analysis.detected_symptoms.length > 0) {
+      parts.push(`${t.symptom.detected_symptoms}: ${analysis.detected_symptoms.join(', ')}.`);
+    }
+    parts.push(`${t.symptom.severity}: ${analysis.severity}.`);
+    if (analysis.possible_conditions.length > 0) {
+      parts.push(`${t.symptom.possible_conditions}: ${analysis.possible_conditions.map(c => c.name).join(', ')}.`);
+    }
+    if (analysis.precautions.length > 0) {
+      parts.push(`${t.symptom.precautions}: ${analysis.precautions.join('. ')}.`);
+    }
+    parts.push(`${t.symptom.when_to_visit}: ${analysis.when_to_visit}`);
+
+    const text = parts.join(' ');
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = langCode;
+    utterance.rate = 0.85;
+    utterance.pitch = 1;
+    utterance.onend = () => setSpeakingMsgId(null);
+    utterance.onerror = () => setSpeakingMsgId(null);
+    utteranceRef.current = utterance;
+    setSpeakingMsgId(msgId);
+    window.speechSynthesis.speak(utterance);
+  }, [language, speakingMsgId, stopSpeaking, t]);
+
+  useEffect(() => {
+    return () => { window.speechSynthesis.cancel(); };
+  }, []);
 
   useEffect(() => {
     if (messages.length === 0) {
@@ -233,6 +279,22 @@ const SymptomAnalysis = () => {
                           )}
                         </div>
                       )}
+
+                      {/* Play Voice Button */}
+                      <button
+                        onClick={() => speakAnalysis(msg.analysis!, msg.id)}
+                        className={`mt-2 flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-medium transition-colors ${
+                          speakingMsgId === msg.id
+                            ? 'bg-destructive/10 text-destructive hover:bg-destructive/20'
+                            : 'bg-primary/10 text-primary hover:bg-primary/20'
+                        }`}
+                      >
+                        {speakingMsgId === msg.id ? (
+                          <><Square className="h-3 w-3" /> {t.symptom.stop_voice || '⏹ Stop Voice'}</>
+                        ) : (
+                          <><Volume2 className="h-3 w-3" /> {t.symptom.play_voice || '🔊 Play Voice'}</>
+                        )}
+                      </button>
                     </div>
                   )}
                 </div>
