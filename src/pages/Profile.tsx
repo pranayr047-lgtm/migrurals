@@ -281,12 +281,11 @@ const Profile = () => {
               <div className="space-y-3">
                 {history.map(record => (
                   <div key={record.id} className="rounded-xl border border-border bg-background p-4">
-                    <div className="mb-2 flex items-start justify-between">
+                    <div className="mb-2">
                       <div>
                         <p className="text-sm font-medium text-foreground">"{record.input_text}"</p>
                         <p className="text-xs text-muted-foreground">{new Date(record.created_at).toLocaleDateString()} · {record.language.toUpperCase()}</p>
                       </div>
-                      <button onClick={() => handleDeleteHistory(record.id)} className="rounded-lg p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"><Trash2 className="h-4 w-4" /></button>
                     </div>
                     <div className="flex flex-wrap gap-1.5 mb-2">
                       {record.detected_symptoms.map((s, i) => (
