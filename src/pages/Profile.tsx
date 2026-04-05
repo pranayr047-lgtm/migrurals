@@ -124,11 +124,6 @@ const Profile = () => {
     setEditing(false);
   };
 
-  const handleDeleteHistory = async (id: string) => {
-    await supabase.from('analysis_history').delete().eq('id', id);
-    setHistory(prev => prev.filter(h => h.id !== id));
-  };
-
   const handleSignOut = async () => { await signOut(); navigate('/'); };
 
   const bmi = profile?.height_cm && profile?.weight_kg
