@@ -9,7 +9,8 @@ import bgImage from '@/assets/bg-rural-health.jpg';
 import { User, Heart, Ruler, Weight, Droplets, AlertCircle, ChevronRight, ChevronLeft, MapPin, Pill, Cigarette, Wine } from 'lucide-react';
 
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-const GENDERS = ['Male', 'Female', 'Other'];
+const GENDER_KEYS = ['Male', 'Female', 'Other'] as const;
+const GENDER_TRANSLATION_KEYS: Record<string, string> = { Male: 'gender_male', Female: 'gender_female', Other: 'gender_other' };
 const COMMON_CONDITIONS = [
   'Diabetes', 'Hypertension', 'Asthma', 'Heart Disease',
   'Thyroid', 'Arthritis', 'Anemia', 'Kidney Disease',
@@ -18,8 +19,10 @@ const COMMON_ALLERGIES = [
   'Penicillin', 'Sulfa drugs', 'Aspirin', 'Peanuts',
   'Dust', 'Pollen', 'Latex', 'Shellfish',
 ];
-const SMOKING_OPTIONS = ['Never', 'Former', 'Current'];
-const ALCOHOL_OPTIONS = ['Never', 'Occasional', 'Regular'];
+const SMOKING_KEYS = ['Never', 'Former', 'Current'] as const;
+const SMOKING_TRANSLATION_KEYS: Record<string, string> = { Never: 'smoking_never', Former: 'smoking_former', Current: 'smoking_current' };
+const ALCOHOL_KEYS = ['Never', 'Occasional', 'Regular'] as const;
+const ALCOHOL_TRANSLATION_KEYS: Record<string, string> = { Never: 'alcohol_never', Occasional: 'alcohol_occasional', Regular: 'alcohol_regular' };
 
 const Onboarding = () => {
   const { user } = useAuth();
