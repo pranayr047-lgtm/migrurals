@@ -109,10 +109,10 @@ const Onboarding = () => {
             <div>
               <label className="mb-1 block text-sm font-medium text-foreground">{ob.gender || 'Gender'} *</label>
               <div className="flex gap-2">
-                {GENDERS.map(g => (
+                {GENDER_KEYS.map(g => (
                   <button key={g} onClick={() => setGender(g)}
                     className={`flex-1 rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${gender === g ? chipActive : chipInactive}`}>
-                    {g}
+                    {ob[GENDER_TRANSLATION_KEYS[g]] || g}
                   </button>
                 ))}
               </div>
