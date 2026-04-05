@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import PageContainer from '@/components/PageContainer';
 import bgImage from '@/assets/bg-rural-health.jpg';
-import { User, Globe, Clock, Trash2, Activity, AlertTriangle, Heart, Ruler, Weight, Droplets, AlertCircle, MapPin, Pill, Cigarette, Wine, Edit3, Save } from 'lucide-react';
+import { User, Globe, Clock, Activity, AlertTriangle, Heart, Ruler, Weight, Droplets, AlertCircle, MapPin, Pill, Cigarette, Wine, Edit3, Save } from 'lucide-react';
 
 interface ProfileData {
   display_name: string | null;
