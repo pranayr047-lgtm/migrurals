@@ -44,8 +44,54 @@ const SymptomAnalysis = () => {
   const [input, setInput] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [userProfile, setUserProfile] = useState<Record<string, unknown> | null>(null);
+  const [speakingMsgId, setSpeakingMsgId] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const { isListening, transcript, startListening, stopListening, isSupported } = useSpeechRecognition();
+
+  const stopSpeaking = useCallback(() => {
+    window.speechSynthesis.cancel();
+    setSpeakingMsgId(null);
+    utteranceRef.current = null;
+  }, []);
+
+  const speakAnalysis = useCallback((analysis: AIAnalysis, msgId: string) => {
+    if (speakingMsgId === msgId) {
+      stopSpeaking();
+      return;
+    }
+    stopSpeaking();
+
+    const langCode = speechLangCodes[language as keyof typeof speechLangCodes] || 'en-US';
+
+    const parts: string[] = [];
+    if (analysis.detected_symptoms.length > 0) {
+      parts.push(`${t.symptom.detected_symptoms}: ${analysis.detected_symptoms.join(', ')}.`);
+    }
+    parts.push(`${t.symptom.severity}: ${analysis.severity}.`);
+    if (analysis.possible_conditions.length > 0) {
+      parts.push(`${t.symptom.possible_conditions}: ${analysis.possible_conditions.map(c => c.name).join(', ')}.`);
+    }
+    if (analysis.precautions.length > 0) {
+      parts.push(`${t.symptom.precautions}: ${analysis.precautions.join('. ')}.`);
+    }
+    parts.push(`${t.symptom.when_to_visit}: ${analysis.when_to_visit}`);
+
+    const text = parts.join(' ');
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = langCode;
+    utterance.rate = 0.85;
+    utterance.pitch = 1;
+    utterance.onend = () => setSpeakingMsgId(null);
+    utterance.onerror = () => setSpeakingMsgId(null);
+    utteranceRef.current = utterance;
+    setSpeakingMsgId(msgId);
+    window.speechSynthesis.speak(utterance);
+  }, [language, speakingMsgId, stopSpeaking, t]);
+
+  useEffect(() => {
+    return () => { window.speechSynthesis.cancel(); };
+  }, []);
 
   useEffect(() => {
     if (messages.length === 0) {
