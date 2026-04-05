@@ -188,10 +188,10 @@ const Onboarding = () => {
                 <Wine className="h-4 w-4 text-muted-foreground" /> {ob.alcohol || 'Alcohol'}
               </label>
               <div className="flex gap-2">
-                {ALCOHOL_OPTIONS.map(a => (
+                {ALCOHOL_KEYS.map(a => (
                   <button key={a} onClick={() => setAlcoholConsumption(a)}
                     className={`flex-1 rounded-xl border px-2 py-2 text-xs font-medium transition-colors ${alcoholConsumption === a ? chipActive : chipInactive}`}>
-                    {a}
+                    {ob[ALCOHOL_TRANSLATION_KEYS[a]] || a}
                   </button>
                 ))}
               </div>
