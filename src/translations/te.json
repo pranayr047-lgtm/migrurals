@@ -238,7 +238,16 @@
     "back": "వెనుకకు",
     "next": "తదుపరి",
     "complete": "సెటప్ పూర్తి చేయండి",
-    "step_of": "దశ"
+    "step_of": "దశ",
+    "gender_male": "పురుషుడు",
+    "gender_female": "స్త్రీ",
+    "gender_other": "ఇతరం",
+    "smoking_never": "ఎప్పుడూ లేదు",
+    "smoking_former": "మునుపటి",
+    "smoking_current": "ప్రస్తుతం",
+    "alcohol_never": "ఎప్పుడూ లేదు",
+    "alcohol_occasional": "అప్పుడప్పుడు",
+    "alcohol_regular": "క్రమం తప్పకుండా"
   },
   "profile_page": {
     "title": "ప్రొఫైల్",
