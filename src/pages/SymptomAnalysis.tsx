@@ -102,6 +102,7 @@ const SymptomAnalysis = () => {
 
         // Save to history + evaluation log
         if (user) {
+          const userRegion = (userProfile as any)?.village_location || '';
           await supabase.from('analysis_history').insert([{
             user_id: user.id,
             input_text: text,
@@ -111,6 +112,8 @@ const SymptomAnalysis = () => {
             precaution_keys: analysis.precautions,
             when_to_visit_key: analysis.when_to_visit,
             language,
+            region: userRegion,
+            location: userRegion,
           }]);
 
           // Log evaluation metrics
