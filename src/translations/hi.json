@@ -238,7 +238,16 @@
     "back": "पीछे",
     "next": "अगला",
     "complete": "सेटअप पूरा करें",
-    "step_of": "चरण"
+    "step_of": "चरण",
+    "gender_male": "पुरुष",
+    "gender_female": "महिला",
+    "gender_other": "अन्य",
+    "smoking_never": "कभी नहीं",
+    "smoking_former": "पूर्व",
+    "smoking_current": "वर्तमान",
+    "alcohol_never": "कभी नहीं",
+    "alcohol_occasional": "कभी-कभी",
+    "alcohol_regular": "नियमित"
   },
   "profile_page": {
     "title": "प्रोफ़ाइल",
