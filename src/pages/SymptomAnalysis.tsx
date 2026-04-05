@@ -64,7 +64,7 @@ const SymptomAnalysis = () => {
   // Load user health profile for AI context
   useEffect(() => {
     if (!user) return;
-    supabase.from('profiles').select('age, gender, blood_type, height_cm, weight_kg, allergies, pre_existing_conditions')
+    supabase.from('profiles').select('age, gender, blood_type, height_cm, weight_kg, allergies, pre_existing_conditions, village_location')
       .eq('user_id', user.id).single().then(({ data }) => {
         if (data) setUserProfile(data as unknown as Record<string, unknown>);
       });
@@ -102,6 +102,7 @@ const SymptomAnalysis = () => {
 
         // Save to history + evaluation log
         if (user) {
+          const userRegion = (userProfile as any)?.village_location || '';
           await supabase.from('analysis_history').insert([{
             user_id: user.id,
             input_text: text,
@@ -111,6 +112,8 @@ const SymptomAnalysis = () => {
             precaution_keys: analysis.precautions,
             when_to_visit_key: analysis.when_to_visit,
             language,
+            region: userRegion,
+            location: userRegion,
           }]);
 
           // Log evaluation metrics
