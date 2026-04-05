@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage, speechLangCodes } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import PageContainer from '@/components/PageContainer';
 import bgImage from '@/assets/bg-rural-health.jpg';
-import { Send, Mic, MicOff, AlertTriangle, Activity, Shield, Stethoscope, Heart, AlertCircle } from 'lucide-react';
+import { Send, Mic, MicOff, AlertTriangle, Activity, Shield, Stethoscope, Heart, AlertCircle, Volume2, Square } from 'lucide-react';
 
 import { toast } from 'sonner';
 
