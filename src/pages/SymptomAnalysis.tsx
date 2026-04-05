@@ -279,6 +279,22 @@ const SymptomAnalysis = () => {
                           )}
                         </div>
                       )}
+
+                      {/* Play Voice Button */}
+                      <button
+                        onClick={() => speakAnalysis(msg.analysis!, msg.id)}
+                        className={`mt-2 flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-medium transition-colors ${
+                          speakingMsgId === msg.id
+                            ? 'bg-destructive/10 text-destructive hover:bg-destructive/20'
+                            : 'bg-primary/10 text-primary hover:bg-primary/20'
+                        }`}
+                      >
+                        {speakingMsgId === msg.id ? (
+                          <><Square className="h-3 w-3" /> {t.symptom.stop_voice || '⏹ Stop Voice'}</>
+                        ) : (
+                          <><Volume2 className="h-3 w-3" /> {t.symptom.play_voice || '🔊 Play Voice'}</>
+                        )}
+                      </button>
                     </div>
                   )}
                 </div>
