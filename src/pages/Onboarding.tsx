@@ -175,10 +175,10 @@ const Onboarding = () => {
                 <Cigarette className="h-4 w-4 text-muted-foreground" /> {ob.smoking || 'Smoking Status'}
               </label>
               <div className="flex gap-2">
-                {SMOKING_OPTIONS.map(s => (
+                {SMOKING_KEYS.map(s => (
                   <button key={s} onClick={() => setSmokingStatus(s)}
                     className={`flex-1 rounded-xl border px-2 py-2 text-xs font-medium transition-colors ${smokingStatus === s ? chipActive : chipInactive}`}>
-                    {s}
+                    {ob[SMOKING_TRANSLATION_KEYS[s]] || s}
                   </button>
                 ))}
               </div>
