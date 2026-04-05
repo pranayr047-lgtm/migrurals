@@ -344,7 +344,16 @@
     "back": "Back",
     "next": "Next",
     "complete": "Complete Setup",
-    "step_of": "Step"
+    "step_of": "Step",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Other",
+    "smoking_never": "Never",
+    "smoking_former": "Former",
+    "smoking_current": "Current",
+    "alcohol_never": "Never",
+    "alcohol_occasional": "Occasional",
+    "alcohol_regular": "Regular"
   },
   "profile_page": {
     "title": "Profile",
