@@ -47,7 +47,9 @@
     "precautions": "Precautions",
     "when_to_visit": "When to Visit a Doctor",
     "welcome_message": "Hello! I'm your AI health assistant. Describe your symptoms and I'll help you understand what might be going on. Please remember, this is not a substitute for professional medical advice.",
-    "disclaimer": "⚠️ This tool provides general health information only. Always consult a qualified healthcare provider for medical advice."
+    "disclaimer": "⚠️ This tool provides general health information only. Always consult a qualified healthcare provider for medical advice.",
+    "play_voice": "🔊 Play Voice",
+    "stop_voice": "⏹ Stop Voice"
   },
   "voice_page": {
     "title": "Voice Assistant",
