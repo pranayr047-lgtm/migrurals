@@ -127,6 +127,12 @@ const SymptomAnalysis = () => {
     const text = input.trim();
     if (!text || isAnalyzing) return;
 
+    // Check if user has set their region
+    const userRegion = (userProfile as any)?.village_location || '';
+    if (!userRegion && user) {
+      toast.error(t.symptom.region_missing || 'Please set your Village/Region in your Profile before analyzing symptoms. This helps us track health trends in your area.');
+      return;
+    }
     setMessages(prev => [...prev, { id: Date.now().toString(), role: 'user', content: text }]);
     setInput('');
     setIsAnalyzing(true);
