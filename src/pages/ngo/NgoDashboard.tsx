@@ -17,7 +17,7 @@ import NgoProfile from '@/components/ngo/NgoProfile';
 import AIModelSettings from '@/components/ngo/AIModelSettings';
 import { Globe, ChevronDown, LogOut, Bell, User } from 'lucide-react';
 
-export type NgoSection = 'overview' | 'symptoms' | 'trends' | 'areas' | 'camps' | 'volunteers' | 'alerts' | 'settings' | 'profile' | 'ai_settings';
+export type NgoSection = 'overview' | 'symptoms' | 'trends' | 'areas' | 'region_analysis' | 'camps' | 'volunteers' | 'alerts' | 'settings' | 'profile' | 'ai_settings';
 
 const NgoDashboard = () => {
   const [activeSection, setActiveSection] = useState<NgoSection>('overview');
