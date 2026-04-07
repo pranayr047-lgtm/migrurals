@@ -8,6 +8,7 @@ import DashboardOverview from '@/components/ngo/DashboardOverview';
 import ReportedSymptoms from '@/components/ngo/ReportedSymptoms';
 import DiseaseTrends from '@/components/ngo/DiseaseTrends';
 import RuralAreasMonitoring from '@/components/ngo/RuralAreasMonitoring';
+import RegionHealthAnalysis from '@/components/ngo/RegionHealthAnalysis';
 import MedicalCamps from '@/components/ngo/MedicalCamps';
 import Volunteers from '@/components/ngo/Volunteers';
 import AlertsPanel from '@/components/ngo/AlertsPanel';
