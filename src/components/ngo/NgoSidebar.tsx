@@ -27,6 +27,7 @@ const NgoSidebar = ({
     { key: 'symptoms', label: ngo.sidebar_symptoms || 'Reported Symptoms', icon: FileText },
     { key: 'trends', label: ngo.sidebar_trends || 'Disease Trends', icon: TrendingUp },
     { key: 'areas', label: ngo.sidebar_areas || 'Rural Areas', icon: MapPin },
+    { key: 'region_analysis', label: ngo.sidebar_region_analysis || 'Region Health Analysis', icon: TrendingUp },
     { key: 'camps', label: ngo.sidebar_camps || 'Medical Camps', icon: Tent },
     { key: 'volunteers', label: ngo.sidebar_volunteers || 'Volunteers', icon: Users },
     { key: 'alerts', label: ngo.sidebar_alerts || 'Alerts', icon: AlertTriangle },

@@ -8,6 +8,7 @@ import DashboardOverview from '@/components/ngo/DashboardOverview';
 import ReportedSymptoms from '@/components/ngo/ReportedSymptoms';
 import DiseaseTrends from '@/components/ngo/DiseaseTrends';
 import RuralAreasMonitoring from '@/components/ngo/RuralAreasMonitoring';
+import RegionHealthAnalysis from '@/components/ngo/RegionHealthAnalysis';
 import MedicalCamps from '@/components/ngo/MedicalCamps';
 import Volunteers from '@/components/ngo/Volunteers';
 import AlertsPanel from '@/components/ngo/AlertsPanel';
@@ -16,7 +17,7 @@ import NgoProfile from '@/components/ngo/NgoProfile';
 import AIModelSettings from '@/components/ngo/AIModelSettings';
 import { Globe, ChevronDown, LogOut, Bell, User } from 'lucide-react';
 
-export type NgoSection = 'overview' | 'symptoms' | 'trends' | 'areas' | 'camps' | 'volunteers' | 'alerts' | 'settings' | 'profile' | 'ai_settings';
+export type NgoSection = 'overview' | 'symptoms' | 'trends' | 'areas' | 'region_analysis' | 'camps' | 'volunteers' | 'alerts' | 'settings' | 'profile' | 'ai_settings';
 
 const NgoDashboard = () => {
   const [activeSection, setActiveSection] = useState<NgoSection>('overview');
@@ -36,6 +37,7 @@ const NgoDashboard = () => {
       case 'symptoms': return <ReportedSymptoms />;
       case 'trends': return <DiseaseTrends />;
       case 'areas': return <RuralAreasMonitoring />;
+      case 'region_analysis': return <RegionHealthAnalysis />;
       case 'camps': return <MedicalCamps />;
       case 'volunteers': return <Volunteers />;
       case 'alerts': return <AlertsPanel />;
