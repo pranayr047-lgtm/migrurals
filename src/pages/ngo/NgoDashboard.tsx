@@ -37,6 +37,7 @@ const NgoDashboard = () => {
       case 'symptoms': return <ReportedSymptoms />;
       case 'trends': return <DiseaseTrends />;
       case 'areas': return <RuralAreasMonitoring />;
+      case 'region_analysis': return <RegionHealthAnalysis />;
       case 'camps': return <MedicalCamps />;
       case 'volunteers': return <Volunteers />;
       case 'alerts': return <AlertsPanel />;
